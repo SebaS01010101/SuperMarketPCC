@@ -1,3 +1,5 @@
+import java.util.Date;
+
 public class FrutaVerdura extends Alimento {
 
 	private Date fechaIngreso;

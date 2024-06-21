@@ -5,4 +5,8 @@ public class Usuario implements Mostrar {
 	private String contrasenia;
 	private String rol;
 
+	@Override
+	public void mostrar() {
+
+	}
 }

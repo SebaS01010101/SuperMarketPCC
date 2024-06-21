@@ -10,4 +10,8 @@ public class Estante extends Inventario implements Organizador {
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
+	public void ordenar() {
+
+	}
 }
