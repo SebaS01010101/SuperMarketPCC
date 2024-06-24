@@ -25,7 +25,7 @@ public class ConexionSQL {
 
             // Leer los resultados
             while (resultSet.next()) {
-                int id = resultSet.getInt("ID_alimento");
+                int id = resultSet.getInt("ID_producto");
                 String nombre = resultSet.getString("nombre");
                 String tipo = resultSet.getString("tipo");
                 String volumen = resultSet.getString("volumen");
