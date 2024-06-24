@@ -15,6 +15,32 @@ public class ConexionSQL {
             throw new RuntimeException("No se ha podido establecer la conexión");
         }
     }
+    public void obtenerProducto(){
+        try {
+            Statement statement = connection.createStatement();
+            String sql = "SELECT ID_alimento, nombre, tipo, volumen, codigo_de_barras\n" +
+                    "FROM producto p\n" +
+                    "INNER JOIN alimento a ON a.ID_alimento = p.ID_producto;";
+            ResultSet resultSet = statement.executeQuery(sql);
+
+            // Leer los resultados
+            while (resultSet.next()) {
+                int id = resultSet.getInt("ID_alimento");
+                String nombre = resultSet.getString("nombre");
+                String tipo = resultSet.getString("tipo");
+                String volumen = resultSet.getString("volumen");
+                String codigo_de_barras = resultSet.getString("codigo_de_barras");
+                System.out.println("ID: " + id + ", Nombre: " + nombre+", tipo: " + tipo + ", volumen: " + volumen+ ", codigo_de_barras: " + codigo_de_barras);
+            }
+
+            // Cerrar los recursos
+            resultSet.close();
+            statement.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     public Connection getConnection() {
         return connection;
