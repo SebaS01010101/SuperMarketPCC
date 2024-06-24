@@ -19,8 +19,8 @@ public class ConexionSQL {
         try {
             Statement statement = connection.createStatement();
             String sql = "SELECT ID_alimento, nombre, tipo, volumen, codigo_de_barras\n" +
-                    "FROM producto p\n" +
-                    "INNER JOIN alimento a ON a.ID_alimento = p.ID_producto;";
+                    "FROM producto t\n" +
+                    "INNER JOIN tipo a ON t.ID_tipo = p.ID_producto;";
             ResultSet resultSet = statement.executeQuery(sql);
 
             // Leer los resultados
