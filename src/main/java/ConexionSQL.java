@@ -18,19 +18,19 @@ public class ConexionSQL {
     public void obtenerProducto(){
         try {
             Statement statement = connection.createStatement();
-            String sql = "SELECT ID_producto, nombre, tipo, volumen, codigo_de_barras\n" +
-                    "FROM producto p\n" +
-                    "INNER JOIN tipo t ON t.ID_tipo = p.ID_producto;";
+            String sql = "SELECT p.ID_producto, nombre, a.tipo, t.tipo ,volumen, codigo_de_barras FROM producto p INNER JOIN bebestible t ON t.ID_producto = p.ID_producto INNER JOIN tipo a\n" +
+                    "  ON t.ID_tipo = a.ID_tipo;";
             ResultSet resultSet = statement.executeQuery(sql);
 
             // Leer los resultados
             while (resultSet.next()) {
                 int id = resultSet.getInt("ID_producto");
                 String nombre = resultSet.getString("nombre");
-                String tipo = resultSet.getString("tipo");
+                String tipo = resultSet.getString("t.tipo");
+                String descripcion = resultSet.getString("a.tipo");
                 String volumen = resultSet.getString("volumen");
                 String codigo_de_barras = resultSet.getString("codigo_de_barras");
-                System.out.println("ID: " + id + ", Nombre: " + nombre+", tipo: " + tipo + ", volumen: " + volumen+ ", codigo_de_barras: " + codigo_de_barras);
+                System.out.println("ID: " + id + ", Nombre: " + nombre+", Descripcion: "+ descripcion+", Tipo: " + tipo + ", Volumen: " + volumen+ ", Codigo de barras: " + codigo_de_barras);
             }
 
             // Cerrar los recursos
