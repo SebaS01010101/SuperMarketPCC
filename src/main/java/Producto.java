@@ -15,5 +15,19 @@ public abstract class Producto implements Mostrar {
 		this.volumen = volumen;
 	}
 
+	public int getId() {
+		return id;
+	}
 
+	public String getNombre() {
+		return nombre;
+	}
+
+	public String getCodigoBarras() {
+		return codigoBarras;
+	}
+
+	public Double getVolumen() {
+		return volumen;
+	}
 }
