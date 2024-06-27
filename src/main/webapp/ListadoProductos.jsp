@@ -39,12 +39,12 @@
                 List<Producto> productos = conexionSQL.obtenerProducto();
             %>
             <tbody>
-            <% for(Producto producto : productos)%>
+            <% for(Producto producto : productos){%>
                 <tr>
-                    <td><%= %></td>
-                    <td><%= %></td>
-                    <td><%= %></td>
-                    <td><%= %></td>
+                    <td><%= producto.getId() %></td>
+                    <td><%= producto.getNombre() %></td>
+                    <td><%= producto.getCodigoBarras() %></td>
+                    <td><%= producto.getVolumen() %></td>
                     <td style="display: flex; width: 230px;">
                         <form name="eliminar" action="EliminarProducto" method="post">
                             <button type="submit" class="" style="background-color: red;margin-right: 5px;">

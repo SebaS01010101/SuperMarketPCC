@@ -1,7 +1,4 @@
-
-import supermarketpcc.logica.ConexionSQL;
-
-import java.util.ArrayList;
+package supermarketpcc.logica;
 import java.util.List;
 
 
