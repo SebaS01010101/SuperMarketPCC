@@ -10,6 +10,9 @@
 <head>
     <title>Registrar Productos</title>
     <link rel="stylesheet" href="css/registrarProducto.css">
+    <link rel="stylesheet" href="css/sidebar.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.5.2/css/all.css" crossorigin="anonymous">
+
 </head>
 <body>
   <body>
@@ -24,13 +27,28 @@
         </nav>
     </div>
   
-  <form action="RegistrarProducto" method="post">
-    <div class="grupo nombre">
-      <label for="nombre">Nombre: </label>
-      <input type="text" name="nombre" id="nombre" required>
-    </div>
-    <div class="grupo "></div>
+    <div class="main-content">
+      <h1>Registrar Producto</h1>
+      <form action="registrarProducto">
+        <div class="form-grupo">
+          <label for="nombre">Nombre:</label>
+          <input type="text" name="nombre" id="nombre" required>
+        </div>
+        <div class="form-grupo">
+          <label for="codigoDeBarras">Codigo de barras</label>
+          <input type="text" name="codigoDeBarras" id="codigoDeBarras" required>
+        </div>
+        <div class="form-grupo">
+          <label for="volumen">volumnen</label>
+          <input type="text" name="volumen" id="volumen" required>
+        </div>
+        <div class="form-grupo">
+          
+        </div>
 
-  </form>
-</body>
+        <input type="submit" value="Registrar">
+      </form>
+    </div>
+    
+  </body>
 </html>

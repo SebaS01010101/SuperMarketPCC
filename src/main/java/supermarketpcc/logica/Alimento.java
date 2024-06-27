@@ -14,4 +14,9 @@ public class Alimento extends Producto {
     public void mostrar() {
         
     }
+
+    @Override
+    public String toString() {
+        return super.toString();
+    }
 }

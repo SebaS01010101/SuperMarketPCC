@@ -1,3 +1,4 @@
+/* General */
 body {
     background-color: #F5F5F5;
     font-family: Arial, sans-serif;
@@ -7,53 +8,41 @@ body {
     color: #2C3E50;
 }
 
-.sidebar {
-    background-color: #2C3E50;
-    color: white;
-    width: 250px;
-    padding: 20px;
-    box-sizing: border-box;
-    height: 100vh;
-    position: fixed;
-    top: 0;
-    left: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.logo h2 {
-    color: #E8F6F3;
-    text-align: center;
-    font-size: 1.5em;
-    margin: 0 0 30px 0;
-}
-
-.sidebar nav a {
-    display: block;
-    color: white;
-    padding: 10px 20px;
-    text-decoration: none;
-    transition: background-color 0.3s;
-    border-radius: 5px;
-    margin-bottom: 10px;
-    text-align: center;
-    width: 100%;
-    box-sizing: border-box;
-}
-
-.sidebar nav a:hover {
-    background-color: #3498DB;
-}
-
+/* Main Content */
 .main-content {
-    margin-left: 250px; 
+    margin-left: 250px;
     padding: 20px;
     flex: 1;
     display: flex;
     flex-direction: column;
 }
 
+.main-content h1 {
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+/* Table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table, th, td {
+    border: 1px solid #ddd;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+}
+
+thead {
+    background-color: #f2f2f2;
+}
+
+/* Additional Styles */
 header {
     display: flex;
     justify-content: space-between;
@@ -94,30 +83,3 @@ section {
     padding: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-}
-
-table, th, td {
-    border: 1px solid #ddd;
-}
-
-th, td {
-    padding: 10px;
-    text-align: left;
-}
-
-thead {
-    background-color: #f2f2f2;
-}
- .main-content {
-    margin-left: 250px; 
-    padding: 20px;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
- }
-

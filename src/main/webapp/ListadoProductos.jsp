@@ -1,23 +1,28 @@
-<%@ page import="java.util.List" %>
-<%@ page import="java.util.Arrays" %>
-<%@ page import="supermarketpcc.logica.Producto" %>
-<%@ page import="supermarketpcc.logica.ConexionSQL" %>
-<%@ page import="supermarketpcc.logica.SvProducto" %>
-<%@ page import="java.sql.Connection" %>
+
+<%@ page import="java.sql.*" %>
+
+<%@ page import="java.sql.ResultSet" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <link rel="stylesheet" href="css/listadoProductos.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/sidebar.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.5.2/css/all.css" crossorigin="anonymous">
     <title>Listado de Productos</title>
 </head>
 <body>
-    <div class="sidebar">
+    <div class="sidebar"> 
+       
         <div class="logo">
-            <h2>Supermercado PCC</h2>
+            <a href="Home.jsp" class="linkHome">
+                <i class="fa-solid fa-shop icon"></i>
+                <h2>Supermercado PCC</h2>
+
+            </a> 
+           
         </div>
         <nav>
-            <a href="Home.jsp">Home</a>
+
             <a href="ListadoProductos.jsp">Listado de Productos</a>
             <a href="RegistrarProducto.jsp">Registrar Productos</a>
         </nav>
@@ -25,61 +30,51 @@
 
     <div class="main-content">
         <h1>Listado de Productos</h1>
-        <table>
-            <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>Codigo</th>
-                <th>Volumen</th>
-                <th>Accion</th>
-            </tr>
-            </thead>
-            <%
-                ConexionSQL conexionSQL = new ConexionSQL();
-                Connection connection = null;
-                try {
-                    connection = conexionSQL.conexionBD();
-                    SvProducto svProducto = new SvProducto(connection);
-                    List<Producto> productos = svProducto.obtenerProductos();
+        <%
+            Connection connection;
+            String host = "jdbc:mysql://localhost:3306/supermercado_inventario"; // Specify port if not default
+            String user = "root";
+            String password = "";
 
-                    if (productos != null) {
-                        for (Producto producto : productos) {
-            %>
-            <tbody>
-                <tr>
-                    <td><%= producto.getId() %></td>
-                    <td><%= producto.getNombre() %></td>
-                    <td><%= producto.getCodigoBarras() %></td>
-                    <td><%= producto.getVolumen() %></td>
-                    <td style="display: flex; width: 230px;">
-                        <form name="eliminar" action="EliminarProducto" method="post">
-                            <button type="submit" class="" style="background-color: red;margin-right: 5px;">
-                                <i class="fas fa-info-circle"></i> Eliminar
-                            </button>
-                            <input type="hidden" name="id" value="">
-                        </form>
-                        <form name="editar" action="EditarProducto" method="post">
-                            <button type="submit" class="" style="background-color: green;">
-                                <i></i> Editar
-                            </button>
-                            <input type="hidden" name="id" value="">
-                        </form>
-                    </td>
-                </tr>
-                <%
-                        }
-                    }
-                    } catch (Exception e) {
-                    e.printStackTrace();
-                    } finally {
-                    if (connection != null) {
-                    conexionSQL.cerrarConexion();
-                    }
-                    }
-                %>
-            </tbody>
-        </table>
+            try {
+                // Load the MySQL driver
+                Class.forName("com.mysql.cj.jdbc.Driver");
+
+                // Establish the connection
+                connection = DriverManager.getConnection(host, user, password);
+
+                Statement s = connection.createStatement();
+                request.setCharacterEncoding("UTF-8");
+
+                String sql = "SELECT p.ID_producto, nombre, a.tipo ,volumen, codigo_de_barras FROM producto p INNER JOIN alimento t ON t.ID_producto = p.ID_producto INNER JOIN tipo a ON t.ID_tipo = a.ID_tipo;";
+                ResultSet rs = s.executeQuery(sql);
+
+                out.println("<table border='1'>");
+                out.println("<tr>");
+                out.println("<td>ID</td>");
+                out.println("<td>Nombre</td>");
+                out.println("<td>Volumen</td>");
+                out.println("<td>Codigo de barras</td>");
+                out.println("</tr>");
+
+                while(rs.next()) {
+                    out.println("<tr>");
+                    out.println("<td>" + rs.getInt("ID_producto") + "</td>");
+                    out.println("<td>" + rs.getString("nombre") + "</td>");
+                    out.println("<td>" + rs.getDouble("volumen") + "</td>");
+                    out.println("<td>" + rs.getString("codigo_de_barras") + "</td>");
+
+                    out.println("</tr>");
+                }
+
+                out.println("</table>");
+
+            } catch (ClassNotFoundException e) {
+                out.println("Driver not found: " + e.getMessage());
+            } catch (SQLException e) {
+                out.println("SQL error: " + e.getMessage());
+            }
+        %>
     </div>
 </body>
 </html>
