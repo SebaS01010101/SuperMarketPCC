@@ -2,6 +2,8 @@
 <%@ page import="java.util.Arrays" %>
 <%@ page import="supermarketpcc.logica.Producto" %>
 <%@ page import="supermarketpcc.logica.ConexionSQL" %>
+<%@ page import="supermarketpcc.logica.SvProducto" %>
+<%@ page import="java.sql.Connection" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -35,11 +37,14 @@
             </thead>
             <%
                 ConexionSQL conexionSQL = new ConexionSQL();
-                conexionSQL.conexionBD();
-                List<Producto> productos = conexionSQL.obtenerProducto();
+                Connection conexion = conexionSQL.getConnection();
+                SvProducto svProducto = new SvProducto(conexion);
+                List<Producto> productos = svProducto.obtenerProductos();
+
+                if (productos != null) {
+                    for (Producto producto : productos) {
             %>
             <tbody>
-            <% for(Producto producto : productos){%>
                 <tr>
                     <td><%= producto.getId() %></td>
                     <td><%= producto.getNombre() %></td>
@@ -62,7 +67,7 @@
                 </tr>
             <%
                     }
-                }
+                    }
             %>
             </tbody>
         </table>
