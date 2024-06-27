@@ -1,9 +1,17 @@
+
 import supermarketpcc.logica.ConexionSQL;
+
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class Main {
     public static void main(String[] args) {
         ConexionSQL conexionSQL = new ConexionSQL();
         conexionSQL.conexionBD();
-        conexionSQL.obtenerProducto();
+        List<Producto> productos = conexionSQL.obtenerProducto();
+        for (Producto producto : productos) {
+            System.out.println(producto);
+        }
     }
 }
