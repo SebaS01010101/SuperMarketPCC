@@ -12,7 +12,7 @@ public class SvProducto {
     private Connection connection;
 
     public SvProducto(Connection conexion) {
-        this.connection = connection;
+        this.connection = conexion;
     }
 
     public List<Producto> obtenerProductos() throws SQLException {
