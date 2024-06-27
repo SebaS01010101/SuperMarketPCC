@@ -82,6 +82,9 @@ public class ConexionSQL {
     }
 
     public Connection getConnection() {
+        if (connection == null) {
+            conexionBD();
+        }
         return connection;
     }
 
