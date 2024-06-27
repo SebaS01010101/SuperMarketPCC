@@ -48,4 +48,8 @@ public class Inventario implements Mostrar {
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
+	public void mostrar() {
+
+	}
 }

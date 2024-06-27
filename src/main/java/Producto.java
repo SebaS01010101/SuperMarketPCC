@@ -5,4 +5,15 @@ public abstract class Producto implements Mostrar {
 	private String codigoBarras;
 	private Double volumen;
 
+	public Producto() {
+	}
+
+	public Producto(int id, String nombre, String codigoBarras, Double volumen) {
+		this.id = id;
+		this.nombre = nombre;
+		this.codigoBarras = codigoBarras;
+		this.volumen = volumen;
+	}
+
+
 }
