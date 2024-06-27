@@ -1,3 +1,5 @@
+package supermarketpcc.logica;
+
 public class Alimento extends Producto {
 
 

@@ -1,3 +1,5 @@
+package supermarketpcc.logica;
+
 public class Congelado extends Alimento {
 
 	private int temperatura;

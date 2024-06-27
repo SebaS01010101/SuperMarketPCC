@@ -1,3 +1,5 @@
+package supermarketpcc.logica;
+
 import java.util.Date;
 
 public class FrutaVerdura extends Alimento {
@@ -15,7 +17,7 @@ public class FrutaVerdura extends Alimento {
 	}
 
 	public Date calcularCaducidad(Date fechaIngreso) {
-		// TODO - implement FrutaVerdura.calcularCaducidad
+
 		throw new UnsupportedOperationException();
 	}
 

@@ -1,3 +1,5 @@
+package supermarketpcc.logica;
+
 public class Usuario implements Mostrar {
 
 	private String nombre;

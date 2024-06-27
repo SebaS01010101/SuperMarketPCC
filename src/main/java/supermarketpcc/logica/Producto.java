@@ -1,3 +1,5 @@
+package supermarketpcc.logica;
+
 public abstract class Producto implements Mostrar {
 
 	private int id;

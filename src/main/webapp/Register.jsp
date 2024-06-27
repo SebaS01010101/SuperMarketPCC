@@ -13,7 +13,7 @@
     <form class="" action="">
 
         <div class="grupo usuario">
-            <label for="usuario">Usuario: </label>
+            <label for="usuario"> Usuario: </label>
             <input type="text" name="usuario" id="usuario" required>
         </div>
 

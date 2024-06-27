@@ -1,3 +1,5 @@
+package supermarketpcc.logica;
+
 import java.sql.*;
 
 public class ConexionSQL {

@@ -1,3 +1,5 @@
+package supermarketpcc.logica;
+
 import java.util.*;
 
 public class Inventario implements Mostrar {
@@ -12,7 +14,7 @@ public class Inventario implements Mostrar {
 	 * @param cantidad
 	 */
 	public void modificarCantidadProducto(Producto producto, int cantidad) {
-		// TODO - implement Inventario.modificarCantidadProducto
+
 		throw new UnsupportedOperationException();
 	}
 
@@ -21,7 +23,7 @@ public class Inventario implements Mostrar {
 	 * @param nombre
 	 */
 	public Producto buscarProductoPorNombre(String nombre) {
-		// TODO - implement Inventario.buscarProductoPorNombre
+
 		throw new UnsupportedOperationException();
 	}
 
@@ -30,7 +32,7 @@ public class Inventario implements Mostrar {
 	 * @param codigo
 	 */
 	public Producto buscarProductoPorCodigoBarra(String codigo) {
-		// TODO - implement Inventario.buscarProductoPorCodigoBarra
+
 		throw new UnsupportedOperationException();
 	}
 
@@ -39,12 +41,12 @@ public class Inventario implements Mostrar {
 	 * @param id
 	 */
 	public Producto buscarProductoId(int id) {
-		// TODO - implement Inventario.buscarProductoId
+
 		throw new UnsupportedOperationException();
 	}
 
 	public void listarProductos() {
-		// TODO - implement Inventario.listarProductos
+
 		throw new UnsupportedOperationException();
 	}
 
