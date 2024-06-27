@@ -12,36 +12,40 @@ public class SvProducto {
     private Connection connection;
 
     public SvProducto(Connection conexion) {
-        this.connection = connection;
+        this.connection = conexion;
     }
 
     public List<Producto> obtenerProductos() throws SQLException {
-        List<Producto> productos = null;
+        List<Producto> productos = new ArrayList<>();
+        Statement statement = null;
+        ResultSet resultSet = null;
         try {
-            productos = new ArrayList<>();
-            Statement statement = connection.createStatement();
-            String sql = "SELECT p.ID_producto, nombre, a.tipo, t.tipo ,volumen, codigo_de_barras FROM producto p INNER JOIN bebestible t ON t.ID_producto = p.ID_producto INNER JOIN tipo a\n" +
-                    "  ON t.ID_tipo = a.ID_tipo;";
-            ResultSet resultSet = statement.executeQuery(sql);
+            statement = connection.createStatement();
+            String sql = "SELECT p.ID_producto, nombre, a.tipo AS tipo_a, t.tipo AS tipo_t, volumen, codigo_de_barras " +
+                    "FROM producto p " +
+                    "INNER JOIN bebestible t ON t.ID_producto = p.ID_producto " +
+                    "INNER JOIN tipo a ON t.ID_tipo = a.ID_tipo;";
+            resultSet = statement.executeQuery(sql);
 
             while (resultSet.next()) {
                 int id = resultSet.getInt("ID_producto");
                 String nombre = resultSet.getString("nombre");
-                String tipo = resultSet.getString("t.tipo");
-                String descripcion = resultSet.getString("a.tipo");
-                String volumen = resultSet.getString("volumen");
-                String codigo_de_barras = resultSet.getString("codigo_de_barras");
-                System.out.println("ID: " + id + ", Nombre: " + nombre + ", Descripcion: " + descripcion + ", Tipo: " + tipo + ", Volumen: " + volumen + ", Codigo de barras: " + codigo_de_barras);
+                Double volumen = resultSet.getDouble("volumen");
+                String codigoBarras = resultSet.getString("codigo_de_barras");
+                String tipo = resultSet.getString("tipo_t");
+                Producto producto = new Bebestible(id, nombre, codigoBarras, volumen, tipo);
+                productos.add(producto);
             }
-            resultSet.close();
-            statement.close();
-            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            if (resultSet != null) {
+                resultSet.close();
+            }
+            if (statement != null) {
+                statement.close();
+            }
         }
         return productos;
-
     }
-
-
 }
