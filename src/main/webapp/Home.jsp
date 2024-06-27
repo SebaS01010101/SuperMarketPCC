@@ -13,7 +13,7 @@
     </div>
     <nav>
         <a href="ListadoProductos.jsp">Listado de Productos</a>
-        <a href="Register.jsp">Registrar Productos</a>
+        <a href="RegistrarProducto.jsp">Registrar Productos</a>
     </nav>
 </div>
 
