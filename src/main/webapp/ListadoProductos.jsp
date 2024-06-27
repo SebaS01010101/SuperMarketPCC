@@ -37,12 +37,14 @@
             </thead>
             <%
                 ConexionSQL conexionSQL = new ConexionSQL();
-                Connection conexion = conexionSQL.getConnection();
-                SvProducto svProducto = new SvProducto(conexion);
-                List<Producto> productos = svProducto.obtenerProductos();
+                Connection connection = null;
+                try {
+                    connection = conexionSQL.conexionBD();
+                    SvProducto svProducto = new SvProducto(connection);
+                    List<Producto> productos = svProducto.obtenerProductos();
 
-                if (productos != null) {
-                    for (Producto producto : productos) {
+                    if (productos != null) {
+                        for (Producto producto : productos) {
             %>
             <tbody>
                 <tr>
@@ -65,10 +67,17 @@
                         </form>
                     </td>
                 </tr>
-            <%
+                <%
+                        }
+                    }
+                    } catch (Exception e) {
+                    e.printStackTrace();
+                    } finally {
+                    if (connection != null) {
+                    conexionSQL.cerrarConexion();
                     }
                     }
-            %>
+                %>
             </tbody>
         </table>
     </div>

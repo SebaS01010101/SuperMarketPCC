@@ -9,7 +9,7 @@ public class ConexionSQL {
     private final static String user = "root";
     private final static String password = "";
 
-    public void conexionBD() {
+    public Connection conexionBD() {
         try {
             connection = DriverManager.getConnection(host, user, password);
             System.out.println("Conexión establecida");
@@ -17,14 +17,10 @@ public class ConexionSQL {
             System.out.println(e.getMessage());
             throw new RuntimeException("No se ha podido establecer la conexión");
         }
-    }
-
-    public Connection getConnection() {
-        if (connection == null) {
-            conexionBD();
-        }
         return connection;
     }
+
+
 
     public void cerrarConexion(){
         try{

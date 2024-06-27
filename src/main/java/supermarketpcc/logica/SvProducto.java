@@ -11,8 +11,9 @@ public class SvProducto {
 
     private Connection connection;
 
-    public SvProducto(Connection conexion) {
-        this.connection = conexion;
+    public SvProducto(Connection connection) {
+        this.connection = connection;
+
     }
 
     public List<Producto> obtenerProductos() throws SQLException {
