@@ -1,4 +1,5 @@
 import java.sql.*;
+import java.util.List;
 
 public class ConexionSQL {
     private Connection connection;
@@ -15,7 +16,7 @@ public class ConexionSQL {
             throw new RuntimeException("No se ha podido establecer la conexión");
         }
     }
-    public void obtenerProducto(){
+    public List<Producto> obtenerProducto(){
         try {
             Statement statement = connection.createStatement();
             String sql = "SELECT p.ID_producto, nombre, a.tipo, t.tipo ,volumen, codigo_de_barras FROM producto p INNER JOIN bebestible t ON t.ID_producto = p.ID_producto INNER JOIN tipo a\n" +
@@ -41,6 +42,7 @@ public class ConexionSQL {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return null;
     }
     public void agregarProducto(String nombre, String volumen, String codigo_de_barras, String tipo){
         try {
