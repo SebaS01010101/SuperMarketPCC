@@ -11,11 +11,14 @@ public class ConexionSQL {
 
     public Connection conexionBD() {
         try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
             connection = DriverManager.getConnection(host, user, password);
             System.out.println("Conexión establecida");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             throw new RuntimeException("No se ha podido establecer la conexión");
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
         }
         return connection;
     }

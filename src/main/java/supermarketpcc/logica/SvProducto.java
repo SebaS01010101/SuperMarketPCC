@@ -11,9 +11,8 @@ public class SvProducto {
 
     private Connection connection;
 
-    public SvProducto(Connection connection) {
-        this.connection = connection;
-
+    public SvProducto() {
+    this.connection = new ConexionSQL().conexionBD();
     }
     public void agregarProducto(String nombre, String volumen, String codigo_de_barras, String tipo){
         try {
@@ -50,7 +49,7 @@ public class SvProducto {
 
     }
 
-    public List<Producto> obtenerProductos() throws SQLException {
+    public List<Producto> obtenerProductos()  {
         List<Producto> productos = new ArrayList<>();
         Statement statement = null;
         ResultSet resultSet = null;
@@ -70,17 +69,14 @@ public class SvProducto {
                 String tipo = resultSet.getString("tipo_t");
                 Producto producto = new Bebestible(id, nombre, codigoBarras, volumen, tipo);
                 productos.add(producto);
+                System.out.println("Producto encontrado: " + producto);
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            if (resultSet != null) {
-                resultSet.close();
-            }
-            if (statement != null) {
-                statement.close();
-            }
+
         }
+
+
         return productos;
     }
 }

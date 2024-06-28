@@ -32,4 +32,14 @@ public abstract class Producto implements Mostrar {
 	public Double getVolumen() {
 		return volumen;
 	}
+
+	@Override
+	public String toString() {
+		return "Producto{" +
+				"id=" + id +
+				", nombre='" + nombre + '\'' +
+				", codigoBarras='" + codigoBarras + '\'' +
+				", volumen=" + volumen +
+				'}';
+	}
 }

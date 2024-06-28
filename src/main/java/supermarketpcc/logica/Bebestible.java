@@ -11,4 +11,17 @@ public class Bebestible extends Alimento {
 		super(id, nombre, codigoBarras, volumen);
 		this.tipo = tipo;
 	}
+
+
+
+	public String getTipo() {
+		return tipo;
+	}
+
+	@Override
+	public String toString() {
+		return "Bebestible{" + (super.toString()) +
+				"tipo='" + tipo + '\'' +
+				'}';
+	}
 }

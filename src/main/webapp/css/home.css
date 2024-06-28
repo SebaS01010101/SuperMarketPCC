@@ -20,13 +20,40 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: flex-start;
 }
 
-.logo h2 {
+.sidebar .logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 0;
+    width: 100%;
+}
+
+.sidebar .logo a {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.sidebar .logo .icon {
+    font-size: 3em;
+    margin-top: 10px;
+}
+
+.sidebar .logo h2 {
     color: #E8F6F3;
     text-align: center;
-    font-size: 1.5em;
-    margin: 0 0 30px 0;
+    font-size: 1.8em;
+    margin: 0;
+}
+
+.sidebar nav {
+    width: 100%;
 }
 
 .sidebar nav a {
@@ -45,6 +72,7 @@ body {
 .sidebar nav a:hover {
     background-color: #3498DB;
 }
+
 
 .main-content {
     margin-left: 250px;
