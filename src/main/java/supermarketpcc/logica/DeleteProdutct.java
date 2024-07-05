@@ -7,67 +7,76 @@ import java.util.List;
 public class DeleteProdutct {
     private Connection connection;
 
-    public DeleteProdutct(Connection connection) {
-        this.connection = connection;
+    public DeleteProdutct() {
+        this.connection = new ConexionSQL().conexionBD();
     }
 
     public void eliminarPorID(int id) {
-
+        PreparedStatement preparedStatement = null;
         try {
-            String sql = "DELETE FROM producto WHERE id = "+id+"";
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setInt(1, id); // Reemplaza 1 con el ID que quieras eliminar
-
-            int rowsAffected = preparedStatement.executeUpdate();
-            Producto producto;
-
-            System.out.println("Número de filas afectadas: " + rowsAffected);
+            String sql = "DELETE FROM producto WHERE ID_producto = " + id + "";
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.executeUpdate();
             // Cerrar los recursos
-            preparedStatement.close();
-            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
-    public void eliminarTodoProducto(String codigo) {
+        public void eliminarTodoProducto (String codigo){
+            PreparedStatement preparedStatement = null;
+            try {
+                String sql = "DELETE FROM producto WHERE codigo_de_barra = " + codigo + "";
+                preparedStatement = connection.prepareStatement(sql);
+                preparedStatement.executeUpdate();
 
-        try {
-            String sql = "DELETE FROM producto WHERE codigo_de_barras = "+codigo+"";
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, codigo); // Reemplaza 1 con el ID que quieras eliminar
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    if (preparedStatement != null) {
+                        preparedStatement.close();
+                    }
+                    if (connection != null) {
+                        connection.close();
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
 
-            int rowsAffected = preparedStatement.executeUpdate();
-            Producto producto;
+        }
+        public void eliminarPorNombre (String nombre){
 
-            System.out.println("Número de filas afectadas: " + rowsAffected);
-            // Cerrar los recursos
-            preparedStatement.close();
-            connection.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
+            try {
+                String sql = "DELETE FROM producto WHERE nombre = %" + nombre + "";
+                PreparedStatement preparedStatement = connection.prepareStatement(sql);
+                preparedStatement.setString(1, nombre); // Reemplaza 1 con el ID que quieras eliminar
+
+                int rowsAffected = preparedStatement.executeUpdate();
+                System.out.println("Número de filas afectadas: " + rowsAffected);
+
+                // Cerrar los recursos
+                preparedStatement.close();
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        public void eliminarDeEstante () {
+
+        }
+        public void eliminarDeBodega () {
+
         }
     }
-    public void eliminarPorNombre(String nombre) {
-
-        try {
-            String sql = "DELETE FROM producto WHERE nombre = %"+nombre+"";
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, nombre); // Reemplaza 1 con el ID que quieras eliminar
-
-            int rowsAffected = preparedStatement.executeUpdate();
-            System.out.println("Número de filas afectadas: " + rowsAffected);
-
-            // Cerrar los recursos
-            preparedStatement.close();
-            connection.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-    public void eliminarDeEstante(){
-
-    }
-    public void eliminarDeBodega(){
-
-    }
-}

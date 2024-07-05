@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class SvProducto {
@@ -22,21 +23,55 @@ public class SvProducto {
             // no se como va la id abajo porq es autoincrementable
             switch (tipo){
                 case "congelado":
+                    try {
                     //hay que setear las descripciones de cada tipo
+                    System.out.print("Ingrese la temperatura del producto");
                     String temp = "";
-                    String sql1 = "INSERT INTO congelado(ID_producto, temperatura, ID_tipo) VALUES ('','"+temp+"','1')";
+                    String sql1 = "INSERT INTO congelado(temperatura, ID_tipo) VALUES ('"+temp+"','1')";
+                    statement.executeQuery(sql1);
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
                     break;
                 case "fruta_verdura":
-                    String sql2 = "INSERT INTO fruta_verdura(ID_producto, fecha_ingreso, fecha_caducidad, ID_tipo) VALUES ('','','','2')";
+                    try {
+                    System.out.print("Ingrese la fecha de ingreso del producto");
+
+                    System.out.print("Ingrese la fecha de caducidad del producto");
+
+                    String sql2 = "INSERT INTO fruta_verdura(fecha_ingreso, fecha_caducidad, ID_tipo) VALUES ('','','2')";
+                    statement.executeQuery(sql2);
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+
                     break;
                 case "bebestible":
-                    String sql3 = "INSERT INTO bebestible(ID_producto, tipo, ID_tipo) VALUES ('','3','')";
+                    try {
+                    System.out.print("Ingrese clase del producto");
+                     String tipo_bebestible = "";
+                    String sql3 = "INSERT INTO bebestible( tipo, ID_tipo) VALUES ('"+tipo_bebestible+"','3')";
+                    statement.executeQuery(sql3);
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
                     break;
                 case "alimento":
-                    String sql4 = "INSERT INTO alimento(ID_producto, ID_tipo) VALUES ('','4')";
+                    try {
+                    String sql4 = "INSERT INTO alimento(ID_tipo) VALUES ('4')";
+                    statement.executeQuery(sql4);
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
                     break;
                 case "no_alimento":
-                    String sql5 = "INSERT INTO no_alimento(ID_producto, descripcion) VALUES ('','')";
+                    try {
+                    String descripcion = "";
+                    String sql5 = "INSERT INTO no_alimento(descripcion) VALUES ('"+descripcion+"')";
+                    statement.executeQuery(sql5);
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
                     break;
 
             }
