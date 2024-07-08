@@ -2,14 +2,18 @@ package Servlet;
 
 import supermarketpcc.logica.*;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
+import java.sql.Date;
 import java.util.List;
 
 public class SvProducto {
 
     private Connection connection;
-    public List<Producto> productos = new ArrayList<>();
+    List<Producto> productos = new ArrayList<>();
 
     public SvProducto() {
         this.connection = new ConexionSQL().conexionBD();
@@ -18,10 +22,16 @@ public class SvProducto {
     public void agregarProducto(String nombre, Double volumen, String codigoBarras, String tipo) {
         try (Statement statement = connection.createStatement()) {
             String sql = "INSERT INTO producto( nombre, codigo_de_barras, volumen) VALUES ('" + nombre + "','" + codigoBarras + "','" + volumen + "')";
-            statement.executeUpdate(sql);
+            ResultSet resultSet = statement.executeQuery(sql);
+            nombre = resultSet.getString("nombre");
+            volumen = resultSet.getDouble("volumen");
+            codigoBarras = resultSet.getString("codigo_de_barras");
+            tipo = resultSet.getString("tipo");
+
+
+
 
         } catch (SQLException e) {
-            System.err.println("fallo");
             e.printStackTrace();
         }
 
@@ -72,7 +82,7 @@ public class SvProducto {
         return productos;
     }
 
-    public Producto getCongelado(int id, String nombre, double volumen, String codigoBarras) throws SQLException {
+    private Producto getCongelado(int id, String nombre, double volumen, String codigoBarras) throws SQLException {
         try (Statement statement = connection.createStatement()) {
             String sql = "SELECT temperatura FROM congelado WHERE ID_producto = " + id;
             ResultSet rs = statement.executeQuery(sql);
@@ -84,7 +94,7 @@ public class SvProducto {
         return null;
     }
 
-    public Producto getFrutaVerdura(int id, String nombre, double volumen, String codigoBarras) throws SQLException {
+    private Producto getFrutaVerdura(int id, String nombre, double volumen, String codigoBarras) throws SQLException {
         try (Statement statement = connection.createStatement()) {
             String sql = "SELECT fecha_ingreso, fecha_caducidad FROM fruta_verdura WHERE ID_producto = " + id;
             ResultSet rs = statement.executeQuery(sql);
@@ -97,7 +107,7 @@ public class SvProducto {
         return null;
     }
 
-    public Producto getBebestible(int id, String nombre, double volumen, String codigoBarras) throws SQLException {
+    private Producto getBebestible(int id, String nombre, double volumen, String codigoBarras) throws SQLException {
         try (Statement statement = connection.createStatement()) {
             String sql = "SELECT tipo FROM bebestible WHERE ID_producto = " + id;
             ResultSet rs = statement.executeQuery(sql);
@@ -109,7 +119,7 @@ public class SvProducto {
         return null;
     }
 
-    public Producto getNoAlimento(int id, String nombre, double volumen, String codigoBarras) throws SQLException {
+    private Producto getNoAlimento(int id, String nombre, double volumen, String codigoBarras) throws SQLException {
         try (Statement statement = connection.createStatement()) {
             String sql = "SELECT descripcion FROM no_alimento WHERE ID_producto = " + id;
             ResultSet rs = statement.executeQuery(sql);
@@ -120,7 +130,7 @@ public class SvProducto {
         }
         return null;
     }
-    public void insertCongelado(double temperatura) throws SQLException {
+    private void insertCongelado(double temperatura) throws SQLException {
         try (Statement statement = connection.createStatement()) {
             String sql = "INSERT INTO congelado(ID_producto, temperatura, ID_tipo) VALUES ('','"+temperatura+"','1')";
             ResultSet rs = statement.executeQuery(sql);
@@ -132,10 +142,9 @@ public class SvProducto {
         }
     }
 
-    public void insertFrutaVerdura(Date fechaCaducidad) throws SQLException {
-        Date fechaIngreso = null ;
+    private void insertFrutaVerdura(Date fechaIngreso, Date fechaCaducidad) throws SQLException {
         try (Statement statement = connection.createStatement()) {
-            String sql = "INSERT INTO fruta_verdura(ID_producto, fecha_ingreso, fecha_caducidad, ID_tipo) VALUES ('','"+fechaIngreso.toLocalDate()+"','"+fechaCaducidad+"','2')";
+            String sql = "INSERT INTO fruta_verdura(ID_producto, fecha_ingreso, fecha_caducidad, ID_tipo) VALUES ('','"+fechaIngreso+"','"+fechaCaducidad+"','2')";
             ResultSet rs = statement.executeQuery(sql);
             if (rs.next()) {
                 sql = "INSERT INTO `tipo_producto`(`ID_tipo`) VALUES ('2')";
@@ -145,7 +154,7 @@ public class SvProducto {
         }
     }
 
-    public void insertBebestible(String tipo) throws SQLException {
+    private void insertBebestible(String tipo) throws SQLException {
         try (Statement statement = connection.createStatement()) {
             String sql = "INSERT INTO bebestible(tipo, ID_tipo) VALUES ('"+tipo+"','3')";
             ResultSet rs = statement.executeQuery(sql);
@@ -157,7 +166,7 @@ public class SvProducto {
         }
 
     }
-    public void insertAlimento() throws SQLException {
+    private void insertAlimento() throws SQLException {
         try (Statement statement = connection.createStatement()) {
             String sql = "INSERT INTO alimento(ID_tipo) VALUES ('4')";
             ResultSet rs = statement.executeQuery(sql);
@@ -170,7 +179,7 @@ public class SvProducto {
 
     }
 
-    public void insertNoAlimento(String descripcion) throws SQLException {
+    private void insertNoAlimento(String descripcion) throws SQLException {
         try (Statement statement = connection.createStatement()) {
             String sql = "INSERT INTO no_alimento(ID_producto, descripcion) VALUES ('','"+descripcion+"')";
             ResultSet rs = statement.executeQuery(sql);
@@ -182,5 +191,4 @@ public class SvProducto {
         }
 
     }
-
 }

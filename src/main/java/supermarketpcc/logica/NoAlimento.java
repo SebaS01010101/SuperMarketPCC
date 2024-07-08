@@ -21,6 +21,10 @@ public class NoAlimento extends Producto {
 
 	}
 
+	public String getDescripcion() {
+		return descripcion;
+	}
+
 	@Override
 	public String toString() {
 		return "NoAlimento{" + (super.toString()) +
