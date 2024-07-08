@@ -18,8 +18,9 @@
     </div>
     <nav>
         <a href="ListadoProductos.jsp">Listado de Productos</a>
-        <a href="">Registrar Productos</a>
-        <a href="Register.jsp">Registrar Usuario</a>
+        <a href="agregarProducto.jsp">Registrar Productos</a>
+        <a href="RegistrarUsuario.jsp">Registrar Usuario</a>
+        <a href="EliminarProducto.jsp">Eliminar Producto</a>
     </nav>
 </div>
 
@@ -32,8 +33,6 @@
     </header>
     </section>
 </div>
-
-<!-- Agregar algo más -->
 
 </body>
 </html>
