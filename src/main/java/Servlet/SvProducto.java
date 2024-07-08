@@ -2,8 +2,13 @@ package Servlet;
 
 import supermarketpcc.logica.*;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
+import java.sql.Date;
+
 import java.util.List;
 
 public class SvProducto {
@@ -23,8 +28,6 @@ public class SvProducto {
             volumen = resultSet.getDouble("volumen");
             codigoBarras = resultSet.getString("codigo_de_barras");
             tipo = resultSet.getString("tipo");
-
-
 
 
         } catch (SQLException e) {
@@ -126,9 +129,10 @@ public class SvProducto {
         }
         return null;
     }
+
     private void insertCongelado(double temperatura) throws SQLException {
         try (Statement statement = connection.createStatement()) {
-            String sql = "INSERT INTO congelado(ID_producto, temperatura, ID_tipo) VALUES ('','"+temperatura+"','1')";
+            String sql = "INSERT INTO congelado(ID_producto, temperatura, ID_tipo) VALUES ('','" + temperatura + "','1')";
             ResultSet rs = statement.executeQuery(sql);
             if (rs.next()) {
                 sql = "INSERT INTO `tipo_producto`(`ID_tipo`) VALUES ('1')";
@@ -140,7 +144,7 @@ public class SvProducto {
 
     private void insertFrutaVerdura(Date fechaIngreso, Date fechaCaducidad) throws SQLException {
         try (Statement statement = connection.createStatement()) {
-            String sql = "INSERT INTO fruta_verdura(ID_producto, fecha_ingreso, fecha_caducidad, ID_tipo) VALUES ('','"+fechaIngreso+"','"+fechaCaducidad+"','2')";
+            String sql = "INSERT INTO fruta_verdura(ID_producto, fecha_ingreso, fecha_caducidad, ID_tipo) VALUES ('','" + fechaIngreso + "','" + fechaCaducidad + "','2')";
             ResultSet rs = statement.executeQuery(sql);
             if (rs.next()) {
                 sql = "INSERT INTO `tipo_producto`(`ID_tipo`) VALUES ('2')";
@@ -152,7 +156,7 @@ public class SvProducto {
 
     private void insertBebestible(String tipo) throws SQLException {
         try (Statement statement = connection.createStatement()) {
-            String sql = "INSERT INTO bebestible(tipo, ID_tipo) VALUES ('"+tipo+"','3')";
+            String sql = "INSERT INTO bebestible(tipo, ID_tipo) VALUES ('" + tipo + "','3')";
             ResultSet rs = statement.executeQuery(sql);
             if (rs.next()) {
                 sql = "INSERT INTO `tipo_producto`(`ID_tipo`) VALUES ('3')";
@@ -162,6 +166,7 @@ public class SvProducto {
         }
 
     }
+
     private void insertAlimento() throws SQLException {
         try (Statement statement = connection.createStatement()) {
             String sql = "INSERT INTO alimento(ID_tipo) VALUES ('4')";
@@ -177,7 +182,7 @@ public class SvProducto {
 
     private void insertNoAlimento(String descripcion) throws SQLException {
         try (Statement statement = connection.createStatement()) {
-            String sql = "INSERT INTO no_alimento(ID_producto, descripcion) VALUES ('','"+descripcion+"')";
+            String sql = "INSERT INTO no_alimento(ID_producto, descripcion) VALUES ('','" + descripcion + "')";
             ResultSet rs = statement.executeQuery(sql);
             if (rs.next()) {
                 sql = "INSERT INTO `tipo_producto`(`ID_tipo`) VALUES ('5')";

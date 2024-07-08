@@ -7,13 +7,10 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) throws SQLException {
-        SvProducto svProducto = new SvProducto();
-        DeleteProduct deleteProdutct = new DeleteProduct();
-        List<Producto> productos = svProducto.obtenerProductos();
-        for (Producto producto : productos) {
-            System.out.println(producto);
-        }
-        deleteProdutct.eliminarPorID(1);
+        Sistema sistema = new Sistema();
+        sistema.agregarEstante();
+        sistema.cargarProductosEnEstantes(1); // Cambia el ID 1 por el ID del producto que deseas agregar
+        sistema.mostrarProductosEnEstantes();
 
     }
 }
