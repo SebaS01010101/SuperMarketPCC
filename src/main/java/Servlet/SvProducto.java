@@ -173,6 +173,7 @@ public class SvProducto {
             statement.executeUpdate(sql);
             insertTipoProductoFrutaVerdura(ultimaID);
         }
+        System.out.println(nombre + " " + volumen + " " + codigoBarras + " " + fechaIngresoSQL + " " + fechaCaducidadSQL);
     }
     public void insertTipoProductoFrutaVerdura(int ultimaID) throws SQLException {
         try (Statement statement = connection.createStatement()) {
