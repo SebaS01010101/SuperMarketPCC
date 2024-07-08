@@ -17,13 +17,21 @@
         </div>
         <nav>
             <a href="ListadoProductos.jsp">Listado de Productos</a>
-            <a href="Register.jsp">Registrar Productos</a>
+            <a href="MenuRegistrarProducto.jsp">Registrar Productos</a>
+            <a href="RegistrarUsuario.jsp">Registrar Usuario</a>
+            <a href="EliminarProducto.jsp">Eliminar Producto</a>
         </nav>
     </div>
+    
 
 <div class="container-form">
     <h2>Registro</h2>
     <form class="" action="">
+
+        <div class="grupo nombre">
+            <label for="nombre">Nombre: </label>
+            <input type="text" name="nombre" id="nombre" required>
+        </div>
 
         <div class="grupo usuario">
             <label for="usuario"> Usuario: </label>
@@ -32,18 +40,21 @@
 
         <div class="grupo contraseña">
             <div class="flexbox">
-                <label for="contraseña">Contraseña: </label>
-                <input type="password" name="contraseña" id="contraseña" required>
+                <label for="contrasena">Contraseña: </label>
+                <input type="password" name="contrasena" id="contrasena" required>
             </div>
 
             <div class="flexbox">
-                <label for="confirmarContraseña">Confirmar Contraseña: </label>
-                <input type="password" name="confirmarContraseña" id="confirmarContraseña" required>
-            </div>
-
-            <input type="submit" value="Registrar">
+                <label for="confirmarContrasena">Confirmar Contraseña: </label>
+                <input type="password" name="confirmarContrasena" id="confirmarContrasena" required>
+            </div>     
         </div>
 
+        <div class="grupo rol">
+            <label for="rol">Rol: </label>
+            <input type="text" name="rol" id="rol">
+        </div>
+            <input type="submit" value="Registrar">
     </form>
 </div>
 
