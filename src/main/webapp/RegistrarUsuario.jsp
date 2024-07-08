@@ -25,47 +25,45 @@
     </div>
     
 
-<div class="container-form">
-    <h2>Registro</h2>
-    <form class="" action="" method="post">
-
-        <div class="grupo nombre">
-            <label for="nombre">Nombre: </label>
-            <input type="text" name="nombre" id="nombre" required>
-        </div>
-
-        <div class="grupo usuario">
-            <label for="usuario"> Usuario: </label>
-            <input type="text" name="usuario" id="usuario" required>
-        </div>
-
-        <div class="grupo contraseña">
-            <div class="flexbox">
-                <label for="contrasena">Contraseña: </label>
-                <input type="password" name="contrasena" id="contrasena" required>
-            </div>
-
-            <div class="flexbox">
-                <label for="confirmarContrasena">Confirmar Contraseña: </label>
-                <input type="password" name="confirmarContrasena" id="confirmarContrasena" required>
-            </div>
-
-            </div>   
-
-        <div class="grupo rol">
-            <label for="rol">Rol: </label>
-            <select name="rol" id="rol">
-                <option value="0">Seleccione un rol</option>
-                <option value="1">admin</option>
-                <option value="2">empleado</option>
-            </select>
-        </div>
+    <div class="container-form">
+        <h2>Registro</h2>
+        <form action="" method="post">
     
+            <div class="grupo nombre">
+                <label for="nombre">Nombre: </label>
+                <input type="text" name="nombre" id="nombre" required>
+            </div>
+    
+            <div class="grupo usuario">
+                <label for="usuario"> Usuario: </label>
+                <input type="text" name="usuario" id="usuario" required>
+            </div>
+    
+            <div class="grupo contraseña">
+                <div class="flexbox">
+                    <label for="contrasena">Contraseña: </label>
+                    <input type="password" name="contrasena" id="contrasena" required>
+                </div>
+    
+                <div class="flexbox">
+                    <label for="confirmarContrasena">Confirmar Contraseña: </label>
+                    <input type="password" name="confirmarContrasena" id="confirmarContrasena" required>
+                </div>
+            </div>   
+    
+            <div class="grupo rol">
+                <label for="rol">Rol: </label>
+                <select name="rol" id="rol">
+                    <option value="0">Seleccione un rol</option>
+                    <option value="1">admin</option>
+                    <option value="2">empleado</option>
+                </select>
+            </div>
+        
             <input type="submit" value="Registrar">
-
-    </form>
-
-</div>
+        </form>
+    </div>
+    
    
 <%
         if (request.getParameter("usuario") != null && request.getParameter("contrasena") != null && request.getParameter("confirmarContrasena") != null) {
