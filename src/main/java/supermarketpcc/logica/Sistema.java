@@ -6,7 +6,9 @@ import java.sql.Statement;
 
 public class Sistema {
 	Connection connection;
-
+	public Sistema() {
+		this.connection = new ConexionSQL().conexionBD();
+	}
 
 	public void registrarUsuario(String inputNombre, String inputUsuario, String inputContrasenia, String inputRol) {
 		try {
@@ -22,6 +24,8 @@ public class Sistema {
 
 		throw new UnsupportedOperationException();
 	}
+
+
 
 	public void ingresarUsuario() {
 

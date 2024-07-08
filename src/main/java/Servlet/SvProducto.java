@@ -9,6 +9,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.sql.Date;
 import java.util.List;
+import java.time.LocalDate;
 
 public class SvProducto {
 
@@ -19,14 +20,34 @@ public class SvProducto {
         this.connection = new ConexionSQL().conexionBD();
     }
 
-    public void agregarProducto(String nombre, Double volumen, String codigoBarras, String tipo) {
+    public int agregarProducto(String nombre, Double volumen, String codigoBarras) {
+        int ultimaID = 0;
         try (Statement statement = connection.createStatement()) {
             String sql = "INSERT INTO producto( nombre, codigo_de_barras, volumen) VALUES ('" + nombre + "','" + codigoBarras + "','" + volumen + "')";
-            statement.executeUpdate(sql);
+            int query = statement.executeUpdate(sql);
+            if (query > 0) {
+                try (ResultSet resultSet = statement.executeQuery("SELECT LAST_INSERT_ID()")) {
+                    if (resultSet.next()) {
+                        ultimaID = resultSet.getInt(1);
+                    }
+                }
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        System.out.println(ultimaID);
+        return ultimaID;
 
+    }
+
+    public void ingresarUsuario(String imputUsuario, String inputContrasenia) {
+        try (Statement statement = connection.createStatement()) {
+            String sql = "SELECT * FROM usuario WHERE usuario='" + imputUsuario + "' AND contrasenia='" + inputContrasenia + "' ";
+            statement.executeQuery(sql);
+            System.out.println("Usuario ingresado correctamente");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public List<Producto> obtenerProductos() {
@@ -74,7 +95,7 @@ public class SvProducto {
         return productos;
     }
 
-    private Producto getCongelado(int id, String nombre, double volumen, String codigoBarras) throws SQLException {
+    public Producto getCongelado(int id, String nombre, double volumen, String codigoBarras) throws SQLException {
         try (Statement statement = connection.createStatement()) {
             String sql = "SELECT temperatura FROM congelado WHERE ID_producto = " + id;
             ResultSet resultSet = statement.executeQuery(sql);
@@ -86,7 +107,7 @@ public class SvProducto {
         return null;
     }
 
-    private Producto getFrutaVerdura(int id, String nombre, double volumen, String codigoBarras) throws SQLException {
+    public Producto getFrutaVerdura(int id, String nombre, double volumen, String codigoBarras) throws SQLException {
         try (Statement statement = connection.createStatement()) {
             String sql = "SELECT fecha_ingreso, fecha_caducidad FROM fruta_verdura WHERE ID_producto = " + id;
             ResultSet resultSet = statement.executeQuery(sql);
@@ -99,7 +120,7 @@ public class SvProducto {
         return null;
     }
 
-    private Producto getBebestible(int id, String nombre, double volumen, String codigoBarras) throws SQLException {
+    public Producto getBebestible(int id, String nombre, double volumen, String codigoBarras) throws SQLException {
         try (Statement statement = connection.createStatement()) {
             String sql = "SELECT tipo FROM bebestible WHERE ID_producto = " + id;
             ResultSet resultSet = statement.executeQuery(sql);
@@ -111,7 +132,7 @@ public class SvProducto {
         return null;
     }
 
-    private Producto getNoAlimento(int id, String nombre, double volumen, String codigoBarras) throws SQLException {
+    public Producto getNoAlimento(int id, String nombre, double volumen, String codigoBarras) throws SQLException {
         try (Statement statement = connection.createStatement()) {
             String sql = "SELECT descripcion FROM no_alimento WHERE ID_producto = " + id;
             ResultSet resultSet = statement.executeQuery(sql);
@@ -122,65 +143,94 @@ public class SvProducto {
         }
         return null;
     }
-    private void insertCongelado(double temperatura) throws SQLException {
+//Metodos insertar congelado{
+    public void insertCongelado(String nombre, double volumen, String codigoBarras, int temperatura) throws SQLException {
+        int ultimaID = agregarProducto(nombre, volumen, codigoBarras);
         try (Statement statement = connection.createStatement()) {
-            String sql = "INSERT INTO congelado(ID_producto, temperatura, ID_tipo) VALUES ('','"+temperatura+"','1')";
-            ResultSet resultSet = statement.executeQuery(sql);
-            if (resultSet.next()) {
-                sql = "INSERT INTO `tipo_producto`(`ID_tipo`) VALUES ('1')";
-                statement.executeQuery(sql);
+            String sql = "INSERT INTO congelado(ID_producto, temperatura, ID_tipo) VALUES ('"+ultimaID+"','" + temperatura + "','1')";
+            statement.executeUpdate(sql);
+            insertTipoProductoCongelado(ultimaID);
+        }
+    }
+    public void insertTipoProductoCongelado(int ultimaID) throws SQLException {
+        try (Statement statement = connection.createStatement()) {
+            String sql = "INSERT INTO tipo_producto(ID_tipo, ID_producto) VALUES ('1','" + ultimaID + "')";
+            statement.executeUpdate(sql);
+        }
+    }
+    //}Fin metodos insertar congelado
 
-            }
+//Metodos insertar fruta verdura{
+    public void insertFrutaVerdura(String nombre, double volumen, String codigoBarras) throws SQLException {
+        int ultimaID = agregarProducto(nombre, volumen, codigoBarras);
+        Date fechaIngresoSQL = Date.valueOf(LocalDate.now());
+        LocalDate fechaIngresoLocal = fechaIngresoSQL.toLocalDate();
+        LocalDate fechaCaducidadLocal = fechaIngresoLocal.plusDays(7);
+        Date fechaCaducidadSQL = Date.valueOf(fechaCaducidadLocal);
+
+        try (Statement statement = connection.createStatement()) {
+            String sql = "INSERT INTO fruta_verdura(ID_producto, fecha_ingreso, fecha_caducidad, ID_tipo) VALUES ('" + ultimaID + "','" + fechaIngresoSQL + "','" + fechaCaducidadSQL + "','2')";
+            statement.executeUpdate(sql);
+            insertTipoProductoFrutaVerdura(ultimaID);
+        }
+    }
+    public void insertTipoProductoFrutaVerdura(int ultimaID) throws SQLException {
+        try (Statement statement = connection.createStatement()) {
+            String sql = "INSERT INTO tipo_producto(ID_tipo, ID_producto) VALUES ('2','" + ultimaID + "')";
+            statement.executeUpdate(sql);
+        }
+    }
+    //}Fin metodos insertar fruta verdura
+
+//Metodos insertar bebestible{
+    public void insertBebestible(String nombre, double volumen, String codigoBarras, String tipo) throws SQLException {
+        int ultimaID = agregarProducto(nombre, volumen, codigoBarras);
+        try (Statement statement = connection.createStatement()) {
+            String sql = "INSERT INTO bebestible(ID_producto, tipo, ID_tipo) VALUES ('" + ultimaID + "','" + tipo + "','3')";
+            statement.executeUpdate(sql);
+            insertTipoProductoBebestible(ultimaID);
+        }
+    }
+    public void insertTipoProductoBebestible(int ultimaID) throws SQLException {
+        try (Statement statement = connection.createStatement()) {
+            String sql = "INSERT INTO tipo_producto(ID_tipo, ID_producto) VALUES ('3','" + ultimaID + "')";
+            statement.executeUpdate(sql);
+        }
+    }
+    //}Fin metodos insertar bebestible
+
+    //Metodos Insertar alimento{
+    public void insertAlimento(String nombre, double volumen, String codigoBarras) throws SQLException {
+        int ultimaID = agregarProducto(nombre, volumen, codigoBarras);
+        try (Statement statement = connection.createStatement()) {
+            String sql = "INSERT INTO alimento(ID_producto, ID_tipo) VALUES ('" + ultimaID + "','4')";
+            statement.executeUpdate(sql);
+            insertTipoProductoAlimento(ultimaID);
         }
     }
 
-    private void insertFrutaVerdura(Date fechaIngreso, Date fechaCaducidad) throws SQLException {
+    public void insertTipoProductoAlimento(int ultimaID) throws SQLException {
         try (Statement statement = connection.createStatement()) {
-            String sql = "INSERT INTO fruta_verdura(ID_producto, fecha_ingreso, fecha_caducidad, ID_tipo) VALUES ('','"+fechaIngreso+"','"+fechaCaducidad+"','2')";
-            ResultSet resultSet = statement.executeQuery(sql);
-            if (resultSet.next()) {
-                sql = "INSERT INTO `tipo_producto`(`ID_tipo`) VALUES ('2')";
-                statement.executeQuery(sql);
-
-            }
+            String sql = "INSERT INTO tipo_producto(ID_tipo, ID_producto) VALUES ('4','" + ultimaID + "')";
+            statement.executeUpdate(sql);
         }
     }
+    //}Fin metodos insertar alimento
 
-    private void insertBebestible(String tipo) throws SQLException {
+    //Metodos insertar no alimento{
+    public void insertNoAlimento(String nombre, double volumen, String codigoBarras, String descripcion) throws SQLException {
+        int ultimaID = agregarProducto(nombre, volumen, codigoBarras);
         try (Statement statement = connection.createStatement()) {
-            String sql = "INSERT INTO bebestible(tipo, ID_tipo) VALUES ('"+tipo+"','3')";
-            ResultSet resultSet = statement.executeQuery(sql);
-            if (resultSet.next()) {
-                sql = "INSERT INTO `tipo_producto`(`ID_tipo`) VALUES ('3')";
-                statement.executeQuery(sql);
-
-            }
+            String sql = "INSERT INTO no_alimento(ID_producto, descripcion) VALUES ('"+ultimaID+"','" + descripcion + "')";
+            statement.executeUpdate(sql);
+            insertTipoProductoNoAlimento(ultimaID);
         }
-
     }
-    private void insertAlimento() throws SQLException {
+    public void insertTipoProductoNoAlimento(int ultimaID) throws SQLException {
         try (Statement statement = connection.createStatement()) {
-            String sql = "INSERT INTO alimento(ID_tipo) VALUES ('4')";
-            ResultSet resultSet = statement.executeQuery(sql);
-            if (resultSet.next()) {
-                sql = "INSERT INTO `tipo_producto`(`ID_tipo`) VALUES ('4')";
-                statement.executeQuery(sql);
-
-            }
+            String sql = "INSERT INTO tipo_producto(ID_tipo, ID_producto) VALUES ('5','" + ultimaID + "')";
+            statement.executeUpdate(sql);
         }
-
     }
-
-    private void insertNoAlimento(String descripcion) throws SQLException {
-        try (Statement statement = connection.createStatement()) {
-            String sql = "INSERT INTO no_alimento(ID_producto, descripcion) VALUES ('','"+descripcion+"')";
-            ResultSet resultSet = statement.executeQuery(sql);
-            if (resultSet.next()) {
-                sql = "INSERT INTO `tipo_producto`(`ID_tipo`) VALUES ('5')";
-                statement.executeQuery(sql);
-
-            }
-        }
-
-    }
+//}Fin metodos insertar no alimento
 }
