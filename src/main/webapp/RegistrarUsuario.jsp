@@ -24,12 +24,7 @@
 
 <div class="container-form">
     <h2>Registro</h2>
-    <form class="" action="" method="post">
-
-        <div class="grupo nombre">
-            <label for="nombre">Nombre: </label>
-            <input type="text" name="nombre" id="nombre" required>
-        </div>
+    <form class="" action="">
 
         <div class="grupo usuario">
             <label for="usuario"> Usuario: </label>
@@ -38,25 +33,69 @@
 
         <div class="grupo contraseña">
             <div class="flexbox">
-                <label for="contrasena">Contraseña: </label>
-                <input type="password" name="contrasena" id="contrasena" required>
+                <label for="contraseña">Contraseña: </label>
+                <input type="password" name="contraseña" id="contraseña" required>
             </div>
 
             <div class="flexbox">
-                <label for="confirmarContrasena">Confirmar Contraseña: </label>
-                <input type="password" name="confirmarContrasena" id="confirmarContrasena" required>
+                <label for="confirmarContraseña">Confirmar Contraseña: </label>
+                <input type="password" name="confirmarContraseña" id="confirmarContraseña" required>
             </div>
+
+            <input type="submit" value="Registrar">
         </div>
 
-        <div class="grupo rol">
-            <label for="rol">Rol: </label>
-            <input type="text" name="rol" id="rol">
-        </div>
-        <input type="submit" value="Registrar">
     </form>
-
 </div>
-    <%
+
+            <a href="agregarProducto.jsp">Registrar Productos</a>
+            <a href="RegistrarUsuario.jsp">Registrar Usuario</a>
+            <a href="EliminarProducto.jsp">Eliminar Producto</a>
+        </nav>
+    </div>
+    
+
+    <div class="container-form">
+        <h2>Registro</h2>
+        <form action="" method="post">
+    
+            <div class="grupo nombre">
+                <label for="nombre">Nombre: </label>
+                <input type="text" name="nombre" id="nombre" required>
+            </div>
+    
+            <div class="grupo usuario">
+                <label for="usuario"> Usuario: </label>
+                <input type="text" name="usuario" id="usuario" required>
+            </div>
+    
+            <div class="grupo contraseña">
+                <div class="flexbox">
+                    <label for="contrasena">Contraseña: </label>
+                    <input type="password" name="contrasena" id="contrasena" required>
+                </div>
+    
+                <div class="flexbox">
+                    <label for="confirmarContrasena">Confirmar Contraseña: </label>
+                    <input type="password" name="confirmarContrasena" id="confirmarContrasena" required>
+                </div>
+            </div>   
+    
+            <div class="grupo rol">
+                <label for="rol">Rol: </label>
+                <select name="rol" id="rol">
+                    <option value="0">Seleccione un rol</option>
+                    <option value="1">admin</option>
+                    <option value="2">empleado</option>
+                </select>
+            </div>
+        
+            <input type="submit" value="Registrar">
+        </form>
+    </div>
+    
+   
+<%
         if (request.getParameter("usuario") != null && request.getParameter("contrasena") != null && request.getParameter("confirmarContrasena") != null) {
             Connection connection;
             String host = "jdbc:mysql://localhost:3306/supermercado_inventario";
