@@ -1,4 +1,5 @@
 <%@ page import="java.sql.*" %>
+<%@ page import="supermarketpcc.logica.Sistema" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -33,33 +34,18 @@
 
 <%
     if (request.getParameter("usuario") != null && request.getParameter("contrasena") != null) {
-        Connection connection;
-        String host = "jdbc:mysql://localhost:3306/supermercado_inventario";
-        String user = "root";
-        String password = "";
 
+        Sistema sistema = new Sistema();
 
         String inputNombre = request.getParameter("usuario");
         String inputContrasena = request.getParameter("contrasena");
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            connection = DriverManager.getConnection(host, user, password);
 
-            Statement s = connection.createStatement();
-            request.setCharacterEncoding("UTF-8");
-
-            String sql = "SELECT usuario, contrasenia FROM usuario where usuario ='" + inputNombre + "'and contrasenia ='" + inputContrasena + "';";
-            ResultSet rs = s.executeQuery(sql);
-
-            if (rs.next()) {
+            if (sistema.ingresarUsuario(inputNombre, inputContrasena)) {
                 response.sendRedirect("Home.jsp");
             } else {
                 out.println("<div style='color:red; text-align:center; margin-top:20px;'>Usuario o contraseña incorrectos.</div>");
             }
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
 %>

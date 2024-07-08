@@ -91,19 +91,30 @@ public class Sistema {
         bodega.agregarProducto(producto);
     }
 
-    public void ingresarUsuario(String imputUsuario, String inputContrasenia) {
+    public boolean ingresarUsuario(String imputUsuario, String inputContrasenia) {
         try (Statement statement = connection.createStatement()) {
-            String sql = "SELECT * FROM usuario WHERE usuario="+imputUsuario+" AND contrasenia="+inputContrasenia+" ";
-            statement.executeUpdate(sql);
+            String sql = "SELECT * FROM usuario WHERE usuario='"+imputUsuario+"' AND contrasenia='"+inputContrasenia+"' ";
+            statement.executeQuery(sql);
+            if (statement.getResultSet().next()) {
+                return true;
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        throw new UnsupportedOperationException();
+        return false;
     }
 
-    public void registrarUsuario() {
+    public void registrarUsuario(String inputNombre, String inputUsuario, String inputContrasenia, String inputRol) {
+        try {
+            PreparedStatement prepareStatement = null;
+            Statement statement = connection.createStatement();
+            String sql = "INSERT INTO usuario(nombre, usuario, contrasenia, ID_rol) VALUES ('"+inputNombre+"','"+inputUsuario+"','"+inputContrasenia+"','"+inputRol+"')";
+            prepareStatement = connection.prepareStatement(sql);
+            prepareStatement.executeUpdate();
 
-        throw new UnsupportedOperationException();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 

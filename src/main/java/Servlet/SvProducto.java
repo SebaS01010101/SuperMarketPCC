@@ -6,9 +6,9 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.sql.Date;
-
 import java.util.List;
 
 public class SvProducto {
@@ -23,13 +23,7 @@ public class SvProducto {
     public void agregarProducto(String nombre, Double volumen, String codigoBarras, String tipo) {
         try (Statement statement = connection.createStatement()) {
             String sql = "INSERT INTO producto( nombre, codigo_de_barras, volumen) VALUES ('" + nombre + "','" + codigoBarras + "','" + volumen + "')";
-            ResultSet resultSet = statement.executeQuery(sql);
-            nombre = resultSet.getString("nombre");
-            volumen = resultSet.getDouble("volumen");
-            codigoBarras = resultSet.getString("codigo_de_barras");
-            tipo = resultSet.getString("tipo");
-
-
+            statement.executeUpdate(sql);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -84,9 +78,9 @@ public class SvProducto {
     private Producto getCongelado(int id, String nombre, double volumen, String codigoBarras) throws SQLException {
         try (Statement statement = connection.createStatement()) {
             String sql = "SELECT temperatura FROM congelado WHERE ID_producto = " + id;
-            ResultSet rs = statement.executeQuery(sql);
-            if (rs.next()) {
-                int temperatura = rs.getInt("temperatura");
+            ResultSet resultSet = statement.executeQuery(sql);
+            if (resultSet.next()) {
+                int temperatura = resultSet.getInt("temperatura");
                 return new Congelado(id, nombre, codigoBarras, volumen, temperatura);
             }
         }
@@ -96,10 +90,10 @@ public class SvProducto {
     private Producto getFrutaVerdura(int id, String nombre, double volumen, String codigoBarras) throws SQLException {
         try (Statement statement = connection.createStatement()) {
             String sql = "SELECT fecha_ingreso, fecha_caducidad FROM fruta_verdura WHERE ID_producto = " + id;
-            ResultSet rs = statement.executeQuery(sql);
-            if (rs.next()) {
-                Date fechaIngreso = rs.getDate("fecha_ingreso");
-                Date fechaCaducidad = rs.getDate("fecha_caducidad");
+            ResultSet resultSet = statement.executeQuery(sql);
+            if (resultSet.next()) {
+                Date fechaIngreso = resultSet.getDate("fecha_ingreso");
+                Date fechaCaducidad = resultSet.getDate("fecha_caducidad");
                 return new FrutaVerdura(id, nombre, codigoBarras, volumen, fechaIngreso, fechaCaducidad);
             }
         }
@@ -109,9 +103,9 @@ public class SvProducto {
     private Producto getBebestible(int id, String nombre, double volumen, String codigoBarras) throws SQLException {
         try (Statement statement = connection.createStatement()) {
             String sql = "SELECT tipo FROM bebestible WHERE ID_producto = " + id;
-            ResultSet rs = statement.executeQuery(sql);
-            if (rs.next()) {
-                String tipoBebestible = rs.getString("tipo");
+            ResultSet resultSet = statement.executeQuery(sql);
+            if (resultSet.next()) {
+                String tipoBebestible = resultSet.getString("tipo");
                 return new Bebestible(id, nombre, codigoBarras, volumen, tipoBebestible);
             }
         }
@@ -121,20 +115,19 @@ public class SvProducto {
     private Producto getNoAlimento(int id, String nombre, double volumen, String codigoBarras) throws SQLException {
         try (Statement statement = connection.createStatement()) {
             String sql = "SELECT descripcion FROM no_alimento WHERE ID_producto = " + id;
-            ResultSet rs = statement.executeQuery(sql);
-            if (rs.next()) {
-                String descripcion = rs.getString("descripcion");
+            ResultSet resultSet = statement.executeQuery(sql);
+            if (resultSet.next()) {
+                String descripcion = resultSet.getString("descripcion");
                 return new NoAlimento(id, nombre, codigoBarras, volumen, descripcion);
             }
         }
         return null;
     }
-
-    private void insertCongelado(double temperatura) throws SQLException {
+    public void insertCongelado(double temperatura) throws SQLException {
         try (Statement statement = connection.createStatement()) {
-            String sql = "INSERT INTO congelado(ID_producto, temperatura, ID_tipo) VALUES ('','" + temperatura + "','1')";
-            ResultSet rs = statement.executeQuery(sql);
-            if (rs.next()) {
+            String sql = "INSERT INTO congelado(ID_producto, temperatura, ID_tipo) VALUES ('','"+temperatura+"','1')";
+            ResultSet resultSet = statement.executeQuery(sql);
+            if (resultSet.next()) {
                 sql = "INSERT INTO `tipo_producto`(`ID_tipo`) VALUES ('1')";
                 statement.executeQuery(sql);
 
@@ -142,23 +135,28 @@ public class SvProducto {
         }
     }
 
-    private void insertFrutaVerdura(Date fechaIngreso, Date fechaCaducidad) throws SQLException {
+    public void insertFrutaVerdura() throws SQLException {
+        Date fechaIngresoSQL = Date.valueOf(LocalDate.now());
+        LocalDate fechaIngresoLocal = fechaIngresoSQL.toLocalDate();
+        LocalDate fechaCaducidadLocal = fechaIngresoLocal.plusDays(10);
+        Date fechaCaducidadSQL = Date.valueOf(fechaCaducidadLocal);
+
         try (Statement statement = connection.createStatement()) {
-            String sql = "INSERT INTO fruta_verdura(ID_producto, fecha_ingreso, fecha_caducidad, ID_tipo) VALUES ('','" + fechaIngreso + "','" + fechaCaducidad + "','2')";
-            ResultSet rs = statement.executeQuery(sql);
-            if (rs.next()) {
-                sql = "INSERT INTO `tipo_producto`(`ID_tipo`) VALUES ('2')";
-                statement.executeQuery(sql);
+            String sql = "INSERT INTO fruta_verdura(ID_producto, fecha_ingreso, fecha_caducidad, ID_tipo) VALUES ('','"+fechaIngresoSQL+"','"+fechaCaducidadSQL+"','2')";
+            ResultSet resultSet = statement.executeUpdate(sql);
+            if (resultSet.next()) {
+                sql = "INSERT INTO tipo_producto(ID_tipo) VALUES ('2')";
+                statement.executeUpdate(sql);
 
             }
         }
     }
 
-    private void insertBebestible(String tipo) throws SQLException {
+    public void insertBebestible(String tipo) throws SQLException {
         try (Statement statement = connection.createStatement()) {
-            String sql = "INSERT INTO bebestible(tipo, ID_tipo) VALUES ('" + tipo + "','3')";
-            ResultSet rs = statement.executeQuery(sql);
-            if (rs.next()) {
+            String sql = "INSERT INTO bebestible(tipo, ID_tipo) VALUES ('"+tipo+"','3')";
+            ResultSet resultSet = statement.executeQuery(sql);
+            if (resultSet.next()) {
                 sql = "INSERT INTO `tipo_producto`(`ID_tipo`) VALUES ('3')";
                 statement.executeQuery(sql);
 
@@ -166,12 +164,11 @@ public class SvProducto {
         }
 
     }
-
-    private void insertAlimento() throws SQLException {
+    public void insertAlimento() throws SQLException {
         try (Statement statement = connection.createStatement()) {
             String sql = "INSERT INTO alimento(ID_tipo) VALUES ('4')";
-            ResultSet rs = statement.executeQuery(sql);
-            if (rs.next()) {
+            ResultSet resultSet = statement.executeQuery(sql);
+            if (resultSet.next()) {
                 sql = "INSERT INTO `tipo_producto`(`ID_tipo`) VALUES ('4')";
                 statement.executeQuery(sql);
 
@@ -180,11 +177,11 @@ public class SvProducto {
 
     }
 
-    private void insertNoAlimento(String descripcion) throws SQLException {
+    public void insertNoAlimento(String descripcion) throws SQLException {
         try (Statement statement = connection.createStatement()) {
-            String sql = "INSERT INTO no_alimento(ID_producto, descripcion) VALUES ('','" + descripcion + "')";
-            ResultSet rs = statement.executeQuery(sql);
-            if (rs.next()) {
+            String sql = "INSERT INTO no_alimento(ID_producto, descripcion) VALUES ('','"+descripcion+"')";
+            ResultSet resultSet = statement.executeQuery(sql);
+            if (resultSet.next()) {
                 sql = "INSERT INTO `tipo_producto`(`ID_tipo`) VALUES ('5')";
                 statement.executeQuery(sql);
 

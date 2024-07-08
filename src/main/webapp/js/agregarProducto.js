@@ -30,3 +30,5 @@ document.addEventListener('DOMContentLoaded', function(){
     document.getElementById('tipoProducto').addEventListener('change', toggleFields);
     toggleFields();
 });
+
+
