@@ -20,7 +20,6 @@ public class Sistema {
 			e.printStackTrace();
 		}
 
-		throw new UnsupportedOperationException();
 	}
 
 	public void ingresarUsuario() {

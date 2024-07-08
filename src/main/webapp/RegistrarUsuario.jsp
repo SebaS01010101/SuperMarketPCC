@@ -1,4 +1,5 @@
 <%@ page import="java.sql.*" %>
+<%@ page import="supermarketpcc.logica.Sistema" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -69,35 +70,14 @@
    
 <%
         if (request.getParameter("usuario") != null && request.getParameter("contrasena") != null && request.getParameter("confirmarContrasena") != null) {
-            Connection connection;
-            String host = "jdbc:mysql://localhost:3306/supermercado_inventario";
-            String user = "root";
-            String password = "";
-
-
+            Sistema sistema = new Sistema();
             String inputNombre = request.getParameter("nombre");
             String inputUsuario = request.getParameter("usuario");
             String inputContrasena = request.getParameter("contrasena");
             String inputRol = request.getParameter("rol");
 
-            try {
-                PreparedStatement ps = null;
-                Class.forName("com.mysql.cj.jdbc.Driver");
-                connection = DriverManager.getConnection(host, user, password);
-
-                Statement s = connection.createStatement();
-                request.setCharacterEncoding("UTF-8");
-
-                String sql = "INSERT INTO `usuario`(`nombre`, `usuario`, `contrasenia`, `ID_rol`) VALUES ('"+inputNombre+"','"+inputUsuario+"','"+inputContrasena+"','"+inputRol+"')";
-                ps = connection.prepareStatement(sql);
-                ps.executeUpdate();
-
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            sistema.registrarUsuario(inputNombre, inputUsuario, inputContrasena, inputRol);
         }
-
     %>
 
 </body>
