@@ -47,7 +47,7 @@
                 <div class="tipoProducto select">
                     <label for="tipoProducto">Tipo de Producto:</label>
                     <select name="tipoProducto" id="tipoProducto">
-                        <option value="default">Seleccionar Tipo</option>
+                        <option value="default">Seleccione Tipo</option>
                         <option value="1">Congelados</option>
                         <option value="2">Fruta y Verdura</option>
                         <option value="3">Bebestible</option>
@@ -58,23 +58,21 @@
 
                 <div class="temperatura">
                     <label for="temperatura" id="labelTemperatura">Temperatura: </label>
-                    <option disabled>
-                        <input type="number" name="temperatura" id="temperatura" required> 
-                    </option>
+                    <input type="number" name="temperatura" id="temperatura" required> 
                 </div>
 
-                <div class="tipoBebestible select">
+                <div class="tipoBebestible">
                     <label for="tipoBebestible" id="labelTipoBebestible">Tipo bebestible:</label>
-                    <option disabled>
-                        <select name="tipoBebestible" id="tipoBebestible">Tipo Bebestible</select>
-                    </option>
+                    <select name="tipoBebestible" id="tipoBebestible">
+                        <option value="default">Seleccionar Tipo Bebestible</option>
+                        <option value="1">Alcoholica</option>
+                        <option value="2">No alcoholica</option>
+                    </select>
                 </div>
 
                 <div class="descripcion">
                     <label for="descripcion" id="labelDescripcion">Descripción: </label>
-                    <option disabled>
-                      <input type="text" name="descripcion" id="descripcion" required>  
-                    </option>
+                    <input type="text" name="descripcion" id="descripcion" required>  
                 </div>
 
                 <input type="submit" value="Registrar">

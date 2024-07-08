@@ -36,7 +36,7 @@
                 <th>Codigo de barra</th>
                 <th>Volumen</th>
             </tr>
-        <%
+<%
         try {
             SvProducto sv = new SvProducto();
             List<Producto> productos = sv.obtenerProductos();
