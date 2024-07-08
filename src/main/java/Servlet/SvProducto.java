@@ -135,7 +135,7 @@ public class SvProducto {
         }
     }
 
-    public void insertFrutaVerdura() throws SQLException {
+    /*public void insertFrutaVerdura() throws SQLException {
         Date fechaIngresoSQL = Date.valueOf(LocalDate.now());
         LocalDate fechaIngresoLocal = fechaIngresoSQL.toLocalDate();
         LocalDate fechaCaducidadLocal = fechaIngresoLocal.plusDays(10);
@@ -150,7 +150,7 @@ public class SvProducto {
 
             }
         }
-    }
+    }*/
 
     public void insertBebestible(String tipo) throws SQLException {
         try (Statement statement = connection.createStatement()) {

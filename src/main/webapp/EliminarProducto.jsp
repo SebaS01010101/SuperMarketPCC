@@ -1,3 +1,4 @@
+<%@ page import="supermarketpcc.logica.DeleteProduct" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -17,38 +18,63 @@
     </div>
     <nav>
         <a href="ListadoProductos.jsp">Listado de Productos</a>
-        <a href="MenuRegistrarProducto.jsp">Registrar Productos</a>
+        <a href="agregarProducto.jsp">Registrar Productos</a>
         <a href="RegistrarUsuario.jsp">Registrar Usuario</a>
         <a href="EliminarProducto.jsp">Eliminar Producto</a>
     </nav>
 </div>
+
 <div class="container">
 
     <div class="form">
         <h3>Eliminar por id</h3>
-        <form action="EliminarProducto" method="post">
+        <form action="" method="post">
             <label for="id">Id:</label>
             <input type="text" id="id" name="id" required>
             <input type="submit" value="Eliminar">
+        </form>
     </div>
+    <%
+        DeleteProduct deleteProduct = new DeleteProduct();
+        if (request.getParameter("id") != null) {
+            int id = Integer.parseInt(request.getParameter("id"));
+            deleteProduct.eliminarPorID(id);
+        }
+    %>
 
     <div class="form">
         <h3>Eliminar por nombre</h3>
-        <form action="EliminarProducto" method="post">
+        <form action="" method="post">
             <label for="nombre">Nombre:</label>
             <input type="text" id="nombre" name="nombre" required>
             <input type="submit" value="Eliminar">
+        </form>
     </div>
+    <%
+        if (request.getParameter("nombre") != null) {
+            String nombre = request.getParameter("nombre");
+            deleteProduct.eliminarPorNombre(nombre);
+        }
+    %>
+
     <div class="form">
         <h3>Eliminar por codigo de barras</h3>
-        <form action="EliminarProducto" method="post">
+        <form action="" method="post">
             <label for="codigo">Codigo de barras:</label>
             <input type="text" id="codigo" name="codigo" required>
             <input type="submit" value="Eliminar">
+        </form>
     </div>
+    <%
+        if (request.getParameter("codigo") != null) {
+            String codigo = request.getParameter("codigo");
+            deleteProduct.eliminarTodoProducto(codigo);
+        }
+
+    %>
+
 
 </div>
-
 
 
 
