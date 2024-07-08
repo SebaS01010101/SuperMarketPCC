@@ -21,4 +21,11 @@ public class FrutaVerdura extends Alimento {
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
+	public String toString() {
+		return "FrutaVerdura{" + (super.toString()) +
+				"fechaIngreso=" + fechaIngreso +
+				", fechaCaducidad=" + fechaCaducidad +
+				'}';
+	}
 }

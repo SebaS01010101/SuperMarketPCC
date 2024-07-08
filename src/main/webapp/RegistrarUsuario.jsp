@@ -1,3 +1,4 @@
+<%@ page import="java.sql.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -46,6 +47,86 @@
 
     </form>
 </div>
+
+            <a href="agregarProducto.jsp">Registrar Productos</a>
+            <a href="RegistrarUsuario.jsp">Registrar Usuario</a>
+            <a href="EliminarProducto.jsp">Eliminar Producto</a>
+        </nav>
+    </div>
+    
+
+    <div class="container-form">
+        <h2>Registro</h2>
+        <form action="" method="post">
+    
+            <div class="grupo nombre">
+                <label for="nombre">Nombre: </label>
+                <input type="text" name="nombre" id="nombre" required>
+            </div>
+    
+            <div class="grupo usuario">
+                <label for="usuario"> Usuario: </label>
+                <input type="text" name="usuario" id="usuario" required>
+            </div>
+    
+            <div class="grupo contraseña">
+                <div class="flexbox">
+                    <label for="contrasena">Contraseña: </label>
+                    <input type="password" name="contrasena" id="contrasena" required>
+                </div>
+    
+                <div class="flexbox">
+                    <label for="confirmarContrasena">Confirmar Contraseña: </label>
+                    <input type="password" name="confirmarContrasena" id="confirmarContrasena" required>
+                </div>
+            </div>   
+    
+            <div class="grupo rol">
+                <label for="rol">Rol: </label>
+                <select name="rol" id="rol">
+                    <option value="0">Seleccione un rol</option>
+                    <option value="1">admin</option>
+                    <option value="2">empleado</option>
+                </select>
+            </div>
+        
+            <input type="submit" value="Registrar">
+        </form>
+    </div>
+    
+   
+<%
+        if (request.getParameter("usuario") != null && request.getParameter("contrasena") != null && request.getParameter("confirmarContrasena") != null) {
+            Connection connection;
+            String host = "jdbc:mysql://localhost:3306/supermercado_inventario";
+            String user = "root";
+            String password = "";
+
+
+            String inputNombre = request.getParameter("nombre");
+            String inputUsuario = request.getParameter("usuario");
+            String inputContrasena = request.getParameter("contrasena");
+            String inputRol = request.getParameter("rol");
+
+            try {
+                PreparedStatement ps = null;
+                Class.forName("com.mysql.cj.jdbc.Driver");
+                connection = DriverManager.getConnection(host, user, password);
+
+                Statement s = connection.createStatement();
+                request.setCharacterEncoding("UTF-8");
+
+                String sql = "INSERT INTO `usuario`(`nombre`, `usuario`, `contrasenia`, `ID_rol`) VALUES ('"+inputNombre+"','"+inputUsuario+"','"+inputContrasena+"','"+inputRol+"')";
+                ps = connection.prepareStatement(sql);
+                ps.executeUpdate();
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+    %>
 
 </body>
 </html>

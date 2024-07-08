@@ -3,6 +3,9 @@
 <%@ page import="supermarketpcc.logica.Producto" %>
 <%@ page import="Servlets.SvProducto" %>
 
+<%@ page import="Servlet.SvProducto" %>
+<%@ page import="supermarketpcc.logica.Producto" %>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -12,21 +15,21 @@
     <title>Listado de Productos</title>
 </head>
 <body>
-    <div class="sidebar">
-        <div class="logo">
-            <a href="Home.jsp" class="linkHome">
-                <i class="fa-solid fa-shop icon"></i>
-                <h2>Supermercado PCC</h2>
-            </a>
+<div class="sidebar">
+    <div class="logo">
+        <a href="Home.jsp" class="linkHome">
+            <i class="fa-solid fa-shop icon"></i>
+            <h2>Supermercado PCC</h2>
+        </a>
 
-        </div>
-        <nav>
-            <a href="ListadoProductos.jsp">Listado de Productos</a>
-            <a href="MenuRegistrarProducto.jsp">Registrar Productos</a>
-            <a href="RegistrarUsuario.jsp">Registrar Usuario</a>
-            <a href="EliminarProducto.jsp">Eliminar Producto</a>
-        </nav>
     </div>
+    <nav>
+        <a href="ListadoProductos.jsp">Listado de Productos</a>
+        <a href="MenuRegistrarProducto.jsp">Registrar Productos</a>
+        <a href="RegistrarUsuario.jsp">Registrar Usuario</a>
+        <a href="EliminarProducto.jsp">Eliminar Producto</a>
+    </nav>
+</div>
 
 
     <div class="main-content">
@@ -60,6 +63,33 @@
             out.println("SQL error: " + e.getMessage());
         }
     %>
+
+        <table>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Codigo de barra</th>
+                <th>Volumen</th>
+            </tr>
+        <%
+        try {
+            SvProducto sv = new SvProducto();
+            List<Producto> productos = sv.obtenerProductos();
+            for (Producto producto : productos) {
+                 out.println("<tr>");
+                out.println("<td>" + producto.getId() + "</td>");
+                out.println("<td>" + producto.getNombre() + "</td>");
+                out.println("<td>" + producto.getCodigoBarras() + "</td>");
+                out.println("<td>" + producto.getVolumen() + "</td>");
+                out.println("</tr>");
+            }
+
+        }catch (Exception e){
+            out.println("Error: " + e.getMessage());
+        }
+
+    %>
+        </table>
     </div>
 </body>
 </html>
