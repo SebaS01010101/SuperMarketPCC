@@ -33,6 +33,7 @@
             <input type="text" id="id" name="id" required>
             <input type="submit" value="Eliminar">
     </div>
+
     <div class="form">
         <h3>Eliminar por nombre</h3>
         <form action="EliminarProducto" method="post">

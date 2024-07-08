@@ -1,11 +1,8 @@
 
-<%@ page import="java.sql.*" %>
-
-<%@ page import="java.sql.ResultSet" %>
-<%@ page import="supermarketpcc.logica.Alimento" %>
 <%@ page import="java.util.List" %>
 <%@ page import="supermarketpcc.logica.Producto" %>
 <%@ page import="Servlets.SvProducto" %>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
