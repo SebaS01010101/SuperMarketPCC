@@ -84,7 +84,4 @@ public class DeleteProduct {
     public void eliminarDeEstante () {
 
     }
-    public void eliminarDeBodega () {
-
-    }
 }

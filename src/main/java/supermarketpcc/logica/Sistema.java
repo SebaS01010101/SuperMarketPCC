@@ -1,8 +1,24 @@
 package supermarketpcc.logica;
 
-public class Sistema {
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.Statement;
 
-	public void registrarUsuario() {
+public class Sistema {
+	Connection connection;
+
+
+	public void registrarUsuario(String inputNombre, String inputUsuario, String inputContrasenia, String inputRol) {
+		try {
+			PreparedStatement prepareStatement = null;
+			Statement statement = connection.createStatement();
+			String sql = "INSERT INTO `usuario`(`nombre`, `usuario`, `contrasenia`, `ID_rol`) VALUES ('"+inputNombre+"','"+inputUsuario+"','"+inputContrasenia+"','"+inputRol+"')";
+			prepareStatement = connection.prepareStatement(sql);
+			prepareStatement.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 		throw new UnsupportedOperationException();
 	}
