@@ -18,13 +18,21 @@
         </div>
         <nav>
             <a href="ListadoProductos.jsp">Listado de Productos</a>
-            <a href="Register.jsp">Registrar Productos</a>
+            <a href="MenuRegistrarProducto.jsp">Registrar Productos</a>
+            <a href="RegistrarUsuario.jsp">Registrar Usuario</a>
+            <a href="EliminarProducto.jsp">Eliminar Producto</a>
         </nav>
     </div>
+    
 
 <div class="container-form">
     <h2>Registro</h2>
     <form class="" action="" method="post">
+
+        <div class="grupo nombre">
+            <label for="nombre">Nombre: </label>
+            <input type="text" name="nombre" id="nombre" required>
+        </div>
 
         <div class="grupo nombre">
             <label for="nombre">Nombre: </label>
@@ -46,6 +54,8 @@
                 <label for="confirmarContrasena">Confirmar Contraseña: </label>
                 <input type="password" name="confirmarContrasena" id="confirmarContrasena" required>
             </div>
+
+            </div>     
         </div>
 
         <div class="grupo rol">
@@ -53,6 +63,9 @@
             <input type="text" name="rol" id="rol">
         </div>
         <input type="submit" value="Registrar">
+
+            <input type="submit" value="Registrar">
+
     </form>
 
 </div>
