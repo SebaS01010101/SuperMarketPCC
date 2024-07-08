@@ -9,7 +9,7 @@ import java.util.List;
 public class SvProducto {
 
     private Connection connection;
-    List<Producto> productos = new ArrayList<>();
+    public List<Producto> productos = new ArrayList<>();
 
     public SvProducto() {
         this.connection = new ConexionSQL().conexionBD();
@@ -18,14 +18,7 @@ public class SvProducto {
     public void agregarProducto(String nombre, Double volumen, String codigoBarras, String tipo) {
         try (Statement statement = connection.createStatement()) {
             String sql = "INSERT INTO producto( nombre, codigo_de_barras, volumen) VALUES ('" + nombre + "','" + codigoBarras + "','" + volumen + "')";
-            ResultSet resultSet = statement.executeQuery(sql);
-            nombre = resultSet.getString("nombre");
-            volumen = resultSet.getDouble("volumen");
-            codigoBarras = resultSet.getString("codigo_de_barras");
-            tipo = resultSet.getString("tipo");
-
-
-
+            statement.executeUpdate(sql);
 
         } catch (SQLException e) {
             e.printStackTrace();

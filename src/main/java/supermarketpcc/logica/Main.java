@@ -10,7 +10,6 @@ public class Main {
         SvProducto svProducto = new SvProducto();
         DeleteProdutct deleteProdutct = new DeleteProdutct();
         List<Producto> productos = svProducto.obtenerProductos();
-
         System.out.println("Productos congelados");
         svProducto.productos.stream().filter( p -> p instanceof Congelado).forEach(p -> System.out.println(p));
         System.out.println("Productos bebestibles");
