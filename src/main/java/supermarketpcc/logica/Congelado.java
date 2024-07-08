@@ -12,6 +12,10 @@ public class Congelado extends Alimento {
 		this.temperatura = temperatura;
 	}
 
+	public int getTemperatura() {
+		return temperatura;
+	}
+
 	@Override
 	public String toString() {
 		return "Congelado{" +(super.toString()) +

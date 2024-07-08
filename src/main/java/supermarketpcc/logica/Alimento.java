@@ -12,8 +12,10 @@ public class Alimento extends Producto {
 
     @Override
     public void mostrar() {
-        
+
     }
+
+
 
     @Override
     public String toString() {
