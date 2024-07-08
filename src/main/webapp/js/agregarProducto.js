@@ -3,6 +3,9 @@ function toggleFields(){
     var temperaturaDiv = document.getElementById("temperatura");
     var tipoBebestibleDiv = document.getElementById('tipoBebestible');
     var descripcionDiv = document.getElementById('descripcion');
+    var labelTemperatura = document.getElementById('labelTemperatura');
+    var labelTipoBebestible = document.getElementById('labelTipoBebestible');
+    var labelDescripcion = document.getElementById('labelDescripcion');
 
     temperaturaDiv.style.display = 'none';
     tipoBebestibleDiv.style.display = 'none';
