@@ -1,8 +1,8 @@
 package supermarketpcc.logica;
 
-import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 public class DeleteProdutct {
     private Connection connection;
@@ -17,7 +17,6 @@ public class DeleteProdutct {
             String sql = "DELETE FROM producto WHERE ID_producto = " + id + "";
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.executeUpdate();
-            // Cerrar los recursos
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -36,11 +35,12 @@ public class DeleteProdutct {
         public void eliminarTodoProducto (String codigo){
             PreparedStatement preparedStatement = null;
             try {
-                String sql = "DELETE FROM producto WHERE codigo_de_barra = " + codigo + "";
+                String sql = "DELETE FROM producto WHERE codigo_de_barras = " + codigo + "";
                 preparedStatement = connection.prepareStatement(sql);
                 preparedStatement.executeUpdate();
-
+                System.out.println("Producto eliminado");
             } catch (SQLException e) {
+                System.err.println("Error al eliminar el producto");
                 e.printStackTrace();
             } finally {
                 try {
@@ -57,20 +57,28 @@ public class DeleteProdutct {
 
         }
         public void eliminarPorNombre (String nombre){
-
+            PreparedStatement preparedStatement = null;
             try {
-                String sql = "DELETE FROM producto WHERE nombre = %" + nombre + "";
-                PreparedStatement preparedStatement = connection.prepareStatement(sql);
-                preparedStatement.setString(1, nombre); // Reemplaza 1 con el ID que quieras eliminar
-
-                int rowsAffected = preparedStatement.executeUpdate();
-                System.out.println("Número de filas afectadas: " + rowsAffected);
-
-                // Cerrar los recursos
+                String sql = "DELETE FROM producto WHERE nombre LIKE '%" + nombre + "%'";
+                preparedStatement = connection.prepareStatement(sql);
+                preparedStatement.executeUpdate();
                 preparedStatement.close();
                 connection.close();
+                System.out.println("Producto eliminado");
             } catch (SQLException e) {
+                System.err.println("Error al eliminar el producto");
                 e.printStackTrace();
+            } finally {
+                try {
+                    if (preparedStatement != null) {
+                        preparedStatement.close();
+                    }
+                    if (connection != null) {
+                        connection.close();
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
         }
         public void eliminarDeEstante () {

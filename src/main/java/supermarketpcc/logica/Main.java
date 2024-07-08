@@ -1,6 +1,6 @@
 package supermarketpcc.logica;
-import java.awt.color.ProfileDataException;
-import java.sql.Connection;
+import Servlet.SvProducto;
+
 import java.sql.SQLException;
 import java.util.List;
 
@@ -10,10 +10,11 @@ public class Main {
         SvProducto svProducto = new SvProducto();
         DeleteProdutct deleteProdutct = new DeleteProdutct();
         List<Producto> productos = svProducto.obtenerProductos();
-        for (Producto producto : productos) {
-            System.out.println(producto);
-        }
-        deleteProdutct.eliminarPorID(1);
+
+        System.out.println("Productos congelados");
+        svProducto.productos.stream().filter( p -> p instanceof Congelado).forEach(p -> System.out.println(p));
+        System.out.println("Productos bebestibles");
+        svProducto.productos.stream().filter( p -> p instanceof Bebestible).forEach(p -> System.out.println(p));
 
     }
 }

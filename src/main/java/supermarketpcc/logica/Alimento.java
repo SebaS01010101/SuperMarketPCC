@@ -17,6 +17,7 @@ public class Alimento extends Producto {
 
     @Override
     public String toString() {
-        return super.toString();
+        return "Alimento{"+super.toString();
     }
+
 }

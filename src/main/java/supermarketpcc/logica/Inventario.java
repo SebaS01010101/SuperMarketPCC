@@ -3,7 +3,7 @@ package supermarketpcc.logica;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.Collection;
 
 public class Inventario implements Mostrar {
 

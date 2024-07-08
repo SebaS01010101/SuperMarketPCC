@@ -46,13 +46,16 @@
                 Statement s = connection.createStatement();
                 request.setCharacterEncoding("UTF-8");
 
-                String sql = "SELECT p.ID_producto, nombre, a.tipo ,volumen, codigo_de_barras FROM producto p INNER JOIN alimento t ON t.ID_producto = p.ID_producto INNER JOIN tipo a ON t.ID_tipo = a.ID_tipo;";
+                String sql = "SELECT p.ID_producto, nombre, t.tipo, volumen, codigo_de_barras FROM producto p " +
+                        "INNER JOIN tipo_producto a ON p.ID_producto = a.ID_producto " +
+                        "INNER JOIN tipo t ON t.ID_tipo = a.ID_tipo ORDER BY ID_producto ASC;";
                 ResultSet rs = s.executeQuery(sql);
 
                 out.println("<table border='1'>");
                 out.println("<tr>");
                 out.println("<td>ID</td>");
                 out.println("<td>Nombre</td>");
+                out.println("<td>Tipo de producto</td>");
                 out.println("<td>Volumen</td>");
                 out.println("<td>Codigo de barras</td>");
                 out.println("</tr>");
@@ -61,6 +64,7 @@
                     out.println("<tr>");
                     out.println("<td>" + rs.getInt("ID_producto") + "</td>");
                     out.println("<td>" + rs.getString("nombre") + "</td>");
+                    out.println("<td>" + rs.getString("t.tipo") + "</td>");
                     out.println("<td>" + rs.getDouble("volumen") + "</td>");
                     out.println("<td>" + rs.getString("codigo_de_barras") + "</td>");
 

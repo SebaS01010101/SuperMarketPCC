@@ -35,11 +35,11 @@ public abstract class Producto implements Mostrar {
 
 	@Override
 	public String toString() {
-		return "Producto{" +
+		return "" +
 				"id=" + id +
 				", nombre='" + nombre + '\'' +
 				", codigoBarras='" + codigoBarras + '\'' +
-				", volumen=" + volumen +
-				'}';
+				", volumen=" + volumen +" "
+				;
 	}
 }

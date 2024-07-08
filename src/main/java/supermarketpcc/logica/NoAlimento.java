@@ -20,4 +20,11 @@ public class NoAlimento extends Producto {
 	public void mostrar() {
 
 	}
+
+	@Override
+	public String toString() {
+		return "NoAlimento{" + (super.toString()) +
+				"descripcion='" + descripcion + '\'' +
+				'}';
+	}
 }
