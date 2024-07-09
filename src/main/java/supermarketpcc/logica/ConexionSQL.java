@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class ConexionSQL {
-    private Connection connection;
+    private Connection connection = null;
     private final static String host = "jdbc:mysql://localhost/supermercado_inventario";
     private final static String user = "root";
     private final static String password = "";
@@ -24,7 +24,9 @@ public class ConexionSQL {
         return connection;
     }
 
-
+    public Connection getConnection() {
+        return connection;
+    }
 
     public void cerrarConexion(){
         try{

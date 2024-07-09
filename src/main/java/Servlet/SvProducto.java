@@ -2,12 +2,8 @@ package Servlet;
 
 import supermarketpcc.logica.*;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
-import java.sql.Date;
 import java.util.List;
 import java.time.LocalDate;
 
@@ -19,7 +15,7 @@ public class SvProducto {
     public SvProducto() {
         this.connection = new ConexionSQL().conexionBD();
     }
-
+//Metodo para agregar producto a la base de datos
     public int agregarProducto(String nombre, Double volumen, String codigoBarras) {
         int ultimaID = 0;
         try (Statement statement = connection.createStatement()) {
@@ -39,17 +35,7 @@ public class SvProducto {
         return ultimaID;
 
     }
-
-    public void ingresarUsuario(String imputUsuario, String inputContrasenia) {
-        try (Statement statement = connection.createStatement()) {
-            String sql = "SELECT * FROM usuario WHERE usuario='" + imputUsuario + "' AND contrasenia='" + inputContrasenia + "' ";
-            statement.executeQuery(sql);
-            System.out.println("Usuario ingresado correctamente");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
+//Obtener todos los productos de la base de datos y pasarlos a una lista
     public List<Producto> obtenerProductos() {
 
         try (Statement statement = connection.createStatement()) {
@@ -57,7 +43,6 @@ public class SvProducto {
                     "INNER JOIN tipo_producto a ON p.ID_producto = a.ID_producto " +
                     "INNER JOIN tipo t ON t.ID_tipo = a.ID_tipo;";
             ResultSet resultSet = statement.executeQuery(sql);
-
             while (resultSet.next()) {
                 int id = resultSet.getInt("ID_producto");
                 String nombre = resultSet.getString("nombre");
@@ -94,7 +79,7 @@ public class SvProducto {
         }
         return productos;
     }
-
+//Metodos para obtener los productos de la base de datos{
     public Producto getCongelado(int id, String nombre, double volumen, String codigoBarras) throws SQLException {
         try (Statement statement = connection.createStatement()) {
             String sql = "SELECT temperatura FROM congelado WHERE ID_producto = " + id;
@@ -143,6 +128,9 @@ public class SvProducto {
         }
         return null;
     }
+    //}Fin metodos obtener productos
+
+
 //Metodos insertar congelado{
     public void insertCongelado(String nombre, double volumen, String codigoBarras, int temperatura) throws SQLException {
         int ultimaID = agregarProducto(nombre, volumen, codigoBarras);
@@ -234,4 +222,75 @@ public class SvProducto {
         }
     }
 //}Fin metodos insertar no alimento
+
+    public void eliminarPorID(int id) {
+        PreparedStatement preparedStatement = null;
+        try {
+            String sql = "DELETE FROM producto WHERE ID_producto = " + id + "";
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    public void eliminarTodoProducto (String codigo){
+        PreparedStatement preparedStatement = null;
+        try {
+            String sql = "DELETE FROM producto WHERE codigo_de_barras = " + codigo + "";
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.executeUpdate();
+            System.out.println("Producto eliminado");
+        } catch (SQLException e) {
+            System.err.println("Error al eliminar el producto");
+            e.printStackTrace();
+        } finally {
+            try {
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+    public void eliminarPorNombre (String nombre){
+        PreparedStatement preparedStatement = null;
+        try {
+            String sql = "DELETE FROM producto WHERE nombre LIKE '%" + nombre + "%'";
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.executeUpdate();
+            preparedStatement.close();
+            connection.close();
+            System.out.println("Producto eliminado");
+        } catch (SQLException e) {
+            System.err.println("Error al eliminar el producto");
+            e.printStackTrace();
+        } finally {
+            try {
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }
