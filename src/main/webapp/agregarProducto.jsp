@@ -40,11 +40,11 @@
         <form method="post">
             <div class="nombre">
                 <label for="nombre">Nombre: </label>
-                <input type="text" name="nombre" id="nombre" required>
+                <input type="text" name="nombre" id="nombre" maxlength="45" required>
             </div>
             <div class="codigoBarras">
                 <label for="codigoBarras">Código de Barras: </label>
-                <input type="text" name="codigoBarras" id="codigoBarras" required>
+                <input type="text" name="codigoBarras" id="codigoBarras" maxlength="10" required>
             </div>
             <div class="volumen">
                 <label for="volumen">Volumen: </label>
@@ -122,4 +122,4 @@
 
 <script src="js/agregarProducto.js"></script>
 </body>
-</html>}
+</html>
