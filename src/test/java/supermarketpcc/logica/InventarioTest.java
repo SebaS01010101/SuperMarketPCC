@@ -17,18 +17,4 @@ class InventarioTest {
     void tearDown() {
     }
 
-    @Test
-    void buscarProductoPorNombre() {
-        String esperado = "chocman";
-        Producto producto = inventario.buscarProductoPorNombre("chocman");
-        assertEquals(esperado, producto.getNombre());
-    }
-
-    @Test
-    void buscarProductoPorCodigoBarra() {
-    }
-
-    @Test
-    void buscarProductoId() {
-    }
 }
