@@ -1,4 +1,4 @@
-<%@ page import="supermarketpcc.logica.DeleteProduct" %>
+<%@ page import="Servlet.SvProducto" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -49,7 +49,7 @@
 
         <!-- Codigo java para borrar producto -->
     <%
-        DeleteProduct deleteProduct = new DeleteProduct();
+        SvProducto deleteProduct = new SvProducto();
         if (request.getParameter("id") != null) {
             int id = Integer.parseInt(request.getParameter("id"));
             deleteProduct.eliminarPorID(id);
