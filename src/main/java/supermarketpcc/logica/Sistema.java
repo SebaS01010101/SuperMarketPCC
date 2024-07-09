@@ -6,7 +6,7 @@ import java.io.*;
 import java.sql.*;
 import java.util.*;
 
-public class Sistema implements Serializable{
+public class Sistema {
 
     private Inventario inventario;
     private transient SvProducto svProducto;
