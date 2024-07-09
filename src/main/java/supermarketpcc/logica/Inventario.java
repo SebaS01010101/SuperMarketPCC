@@ -1,17 +1,14 @@
 package supermarketpcc.logica;
 
 import Servlet.SvProducto;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
-import java.io.*;
-import java.lang.reflect.Type;
+import java.io.Serializable;
 import java.sql.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
 
-public class Inventario implements Mostrar {
+public class Inventario implements Mostrar, Serializable {
 
     List<Producto> productos;
 
@@ -20,9 +17,6 @@ public class Inventario implements Mostrar {
     private HashMap<String, Estante> estantes;
     private transient SvProducto svProducto;
 
-    public Inventario() {
-
-    }
 
     public Inventario(String nombre) {
         this.connection = new ConexionSQL().conexionBD();
@@ -31,6 +25,8 @@ public class Inventario implements Mostrar {
         this.svProducto = new SvProducto();
         this.productos = svProducto.obtenerProductos();
     }
+
+
 
 
     public void agregarEstante(String tipo, Estante estante) {
@@ -128,6 +124,26 @@ public class Inventario implements Mostrar {
 
     public void listarProductos() {
 
+    }
+
+    public List<Producto> getProductos() {
+        return productos;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public Connection getConnection() {
+        return connection;
+    }
+
+    public HashMap<String, Estante> getEstantes() {
+        return estantes;
+    }
+
+    public SvProducto getSvProducto() {
+        return svProducto;
     }
 
     @Override

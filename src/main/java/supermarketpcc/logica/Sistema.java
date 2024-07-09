@@ -20,8 +20,10 @@ public class Sistema implements Serializable{
         this.estantes = new ArrayList<>();
     }
 
-    public void agregarEstante(String nombre, String tipo , double volumenMax) {
 
+
+    public void agregarEstante(String nombre, String tipo , double volumenMax) {
+        System.out.println("Nombre: " + nombre + " Tipo: " + tipo + " Volumen Max: " + volumenMax);
         Estante estante = new Estante(nombre, tipo, volumenMax);
         inventario.agregarEstante(tipo, estante);
         estantes.add(estante);
@@ -64,6 +66,42 @@ public class Sistema implements Serializable{
 
     }
 
+    public void cargarProductosEnEstantes(int id, List<Estante> estantes) {
+        Producto producto = buscarProductoPorId(id);
+
+        if (producto != null) {
+            Map<Class<? extends Producto>, String> tipoEstanteMap = new HashMap<>();
+            tipoEstanteMap.put(Congelado.class, "Congelados");
+            tipoEstanteMap.put(FrutaVerdura.class, "Frutas y Verduras");
+            tipoEstanteMap.put(Bebestible.class, "Bebestibles");
+            tipoEstanteMap.put(Alimento.class, "Alimento");
+            tipoEstanteMap.put(NoAlimento.class, "No Alimento");
+
+            String tipoEstante = tipoEstanteMap.get(producto.getClass());
+
+            if (tipoEstante != null) {
+                Estante estanteCorrespondiente = estantes.stream()
+                        .filter(e -> e.getTipo().equals(tipoEstante))
+                        .findFirst()
+                        .orElse(null);
+
+                if (estanteCorrespondiente != null) {
+                    estanteCorrespondiente.agregarProducto(producto);
+                    System.out.println("Producto agregado al estante de " + tipoEstante);
+                } else {
+                    System.out.println("Estante de tipo " + tipoEstante + " no existe.");
+                }
+            } else {
+                System.out.println("Tipo de producto desconocido: " + producto.getNombre());
+            }
+        } else {
+            System.out.println("Producto con ID " + id + " no encontrado.");
+        }
+    }
+
+
+
+
     public Estante obtenerEstante(String tipoEstante) {
         return inventario.obtenerEstante(tipoEstante);
     }
@@ -95,6 +133,18 @@ public class Sistema implements Serializable{
             FileOutputStream fileOut = new FileOutputStream("estantes.dat");
             ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
             objectOut.writeObject(estantes);
+            objectOut.close();
+            System.out.println("Estantes serializados en estantes.dat");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public void serializableEstantes(List<Estante> estantesActualizados) {
+        try {
+            FileOutputStream fileOut = new FileOutputStream("estantes.dat");
+            ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
+            objectOut.writeObject(estantesActualizados);
             objectOut.close();
             System.out.println("Estantes serializados en estantes.dat");
         } catch (Exception ex) {

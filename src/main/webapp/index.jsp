@@ -16,7 +16,7 @@
 
 <div class="container-form">
     <h2>Login</h2>
-    
+    <!-- Login Form -->
     <form class="formulario" action="" method="post">
         <div class="grupo">
             <label for="usuario">Usuario:</label>
@@ -32,7 +32,7 @@
     </form>
 </div>
 
-<!-- Codigo Java -->
+<!-- Codigo para poder "iniciar sesion" -->
 
 <%
     if (request.getParameter("usuario") != null && request.getParameter("contrasena") != null) {

@@ -23,6 +23,8 @@
             <a href="EliminarProducto.jsp">Eliminar Producto</a>
             <h5>Estantes</h5>
             <a href="agregarEstantes.jsp">Agregar Estante</a>
+            <a href="agregarProductoAEstante.jsp">Agregar Producto a Estante</a>
+            <a href="mostrarEstante.jsp">Mostrar Estante</a>
             <h5>Bodega</h5>
             <a href="bodega.jsp">Bodega</a>
             <h5>Usuarios</h5>

@@ -1,5 +1,5 @@
 .sidebar {
-    background-color: #2C3E50; /* Mantenemos el color de fondo original */
+    background-color: #2C3E50;
     color: white;
     width: 250px;
     padding: 20px;
@@ -11,7 +11,7 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    overflow-y: auto; /* Para manejar el contenido que excede la altura */
+    overflow-y: auto;
 }
 
 .sidebar .logo {
@@ -40,8 +40,8 @@
     font-size: 1.2em;
     color: #ECF0F1;
     padding-bottom: 5px;
-    border-bottom: 2px solid #7F8C8D; /* Línea divisoria sutil */
-    margin-bottom: 10px; /* Espaciado después del título */
+    border-bottom: 2px solid #7F8C8D;
+    margin-bottom: 10px;
 }
 
 .sidebar nav a {
@@ -51,11 +51,11 @@
     display: block;
     transition: background-color 0.3s, color 0.3s;
     border-radius: 5px;
-    margin-bottom: 8px; /* Espaciado uniforme entre enlaces */
+    margin-bottom: 8px;
 }
 
 .sidebar nav a:hover, .sidebar nav a:focus {
-    background-color: #3498DB; /* Efecto hover conservado */
+    background-color: #3498DB;
     color: white;
 }
 

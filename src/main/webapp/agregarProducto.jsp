@@ -9,13 +9,13 @@
 </head>
 <body>
  <!-- Side Bar -->
-<div class="sidebar">
+ <div class="sidebar">
     <div class="logo">
         <a href="Home.jsp" class="linkHome">
             <i class="fa-solid fa-shop icon"></i>
             <h2>Supermercado PCC</h2>
         </a>
-    
+
     </div>
     <nav>
         <h5>Productos</h5>
@@ -24,13 +24,14 @@
         <a href="EliminarProducto.jsp">Eliminar Producto</a>
         <h5>Estantes</h5>
         <a href="agregarEstantes.jsp">Agregar Estante</a>
+        <a href="agregarProductoAEstante.jsp">Agregar Producto a Estante</a>
+        <a href="mostrarEstante.jsp">Mostrar Estante</a>
         <h5>Bodega</h5>
         <a href="bodega.jsp">Bodega</a>
         <h5>Usuarios</h5>
         <a href="RegistrarUsuario.jsp">Registrar Usuario</a>
     </nav>
 </div>
-
 
 <!-- Formulario -->
 <div class="container">
@@ -68,8 +69,8 @@
                 <label for="tipoBebestible" id="labelTipoBebestible">Tipo bebestible:</label>
                 <select name="tipoBebestible" id="tipoBebestible">
                     <option value="">Seleccionar Tipo Bebestible</option>
-                    <option value="1">Alcohólica</option>
-                    <option value="2">No alcohólica</option>
+                    <option value="Alcohólica">Alcohólica</option>
+                    <option value="No alcohólica">No alcohólica</option>
                 </select>
             </div>
             <div class="descripcion">
@@ -81,7 +82,7 @@
     </div>
 </div>
 
-<!-- Codigo Java -->
+<!-- Codigo java del formulario -->
 
 <%
     if ("POST".equalsIgnoreCase(request.getMethod())) {
@@ -93,21 +94,21 @@
 
         try {
             switch (tipoProducto) {
-                case "1": // Congelados
+                case "1":
                     int temperatura = Integer.parseInt(request.getParameter("temperatura"));
                     svProducto.insertCongelado(nombre, Double.parseDouble(volumen), codigoBarras, temperatura);
                     break;
-                case "2": // Fruta y Verdura
+                case "2":
                     svProducto.insertFrutaVerdura(nombre, Double.parseDouble(volumen), codigoBarras);
                     break;
-                case "3": // Bebestible
+                case "3":
                     String tipoBebestible = request.getParameter("tipoBebestible");
                     svProducto.insertBebestible(nombre, Double.parseDouble(volumen), codigoBarras, tipoBebestible);
                     break;
-                case "4": // Alimento
+                case "4":
                     svProducto.insertAlimento(nombre, Double.parseDouble(volumen), codigoBarras);
                     break;
-                case "5": // No alimento
+                case "5":
                     String descripcion = request.getParameter("descripcion");
                     svProducto.insertNoAlimento(nombre, Double.parseDouble(volumen), codigoBarras, descripcion);
                     break;
@@ -121,4 +122,4 @@
 
 <script src="js/agregarProducto.js"></script>
 </body>
-</html>
+</html>}
