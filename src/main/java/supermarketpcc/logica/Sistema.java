@@ -92,11 +92,11 @@ public class Sistema implements Serializable{
     //json metodos
     public void serializableEstantes() {
         try {
-            FileOutputStream fileOut = new FileOutputStream("estantes.dat");
+            FileOutputStream fileOut = new FileOutputStream("estantes.json");
             ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
             objectOut.writeObject(estantes);
             objectOut.close();
-            System.out.println("Estantes serializados en estantes.dat");
+            System.out.println("Estantes serializados en estantes.json");
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -104,10 +104,10 @@ public class Sistema implements Serializable{
 
     public List<Estante> deserializableEstantes() {
         try {
-            ObjectInputStream objectIn = new ObjectInputStream(new FileInputStream("estantes.dat"));
+            ObjectInputStream objectIn = new ObjectInputStream(new FileInputStream("estantes.json"));
             estantes = (List<Estante>) objectIn.readObject();
             objectIn.close();
-            System.out.println("Estantes deserializados de estantes.dat");
+            System.out.println("Estantes deserializados de estantes.json");
         } catch (Exception ex) {
             ex.printStackTrace();
         }
