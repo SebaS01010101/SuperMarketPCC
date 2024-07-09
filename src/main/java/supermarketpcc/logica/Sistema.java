@@ -2,27 +2,29 @@ package supermarketpcc.logica;
 
 import Servlet.SvProducto;
 
+import java.io.*;
 import java.sql.*;
 import java.util.*;
 
-public class Sistema {
+public class Sistema implements Serializable{
 
     private Inventario inventario;
-    private SvProducto svProducto;
-    private Connection connection;
+    private transient SvProducto svProducto;
+    private transient Connection connection;
+    private List<Estante> estantes;
 
     public Sistema() {
-        this.inventario = new Inventario(1, "Inventario Principal");
+        this.inventario = new Inventario("Inventario Principal");
         this.svProducto = new SvProducto();
         this.connection = new ConexionSQL().conexionBD();
+        this.estantes = new ArrayList<>();
     }
 
-    public void agregarEstante() {
-        inventario.agregarEstante("No Alimento", new Estante(1, "Estante No Alimento", "No Alimento", 100));
-        inventario.agregarEstante("Alimento", new Estante(2, "Estante Alimento", "Alimento", 200));
-        inventario.agregarEstante("Congelados", new Estante(3, "Estante Congelados", "Congelados", 150));
-        inventario.agregarEstante("Bebestibles", new Estante(4, "Estante Bebestibles", "Bebestibles", 120));
-        inventario.agregarEstante("Frutas y Verduras", new Estante(5, "Estante Frutas y Verduras", "Frutas y Verduras", 180));
+    public void agregarEstante(String nombre, String tipo , double volumenMax) {
+
+        Estante estante = new Estante(nombre, tipo, volumenMax);
+        inventario.agregarEstante(tipo, estante);
+        estantes.add(estante);
     }
 
     public void agregarProductoEstante(Producto producto, String tipoEstante) {
@@ -38,7 +40,7 @@ public class Sistema {
 
         Producto producto = buscarProductoPorId(id);
 
-        if(producto != null){
+        if (producto != null) {
             Map<Class<? extends Producto>, String> tipoEstanteMap = new HashMap<>();
             tipoEstanteMap.put(Congelado.class, "Congelados");
             tipoEstanteMap.put(FrutaVerdura.class, "Frutas y Verduras");
@@ -65,6 +67,7 @@ public class Sistema {
     public Estante obtenerEstante(String tipoEstante) {
         return inventario.obtenerEstante(tipoEstante);
     }
+
     public void mostrarProductosEnEstantes() {
         inventario.mostrarProductosEnEstantes();
     }
@@ -86,14 +89,44 @@ public class Sistema {
         return null;
     }
 
+    //json metodos
+    public void serializableEstantes() {
+        try {
+            FileOutputStream fileOut = new FileOutputStream("estantes.dat");
+            ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
+            objectOut.writeObject(estantes);
+            objectOut.close();
+            System.out.println("Estantes serializados en estantes.dat");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public List<Estante> deserializableEstantes() {
+        try {
+            ObjectInputStream objectIn = new ObjectInputStream(new FileInputStream("estantes.dat"));
+            estantes = (List<Estante>) objectIn.readObject();
+            objectIn.close();
+            System.out.println("Estantes deserializados de estantes.dat");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return estantes;
+    }
+
+    public void eliminarUsuario() {
+
+        throw new UnsupportedOperationException();
+    }
+
     public void agregarProductoBodega(Producto producto) {
-        Bodega bodega = new Bodega(1, "Bodega Principal");
+        Bodega bodega = new Bodega( "Bodega Principal");
         bodega.agregarProducto(producto);
     }
 
     public boolean ingresarUsuario(String imputUsuario, String inputContrasenia) {
         try (Statement statement = connection.createStatement()) {
-            String sql = "SELECT * FROM usuario WHERE usuario='"+imputUsuario+"' AND contrasenia='"+inputContrasenia+"' ";
+            String sql = "SELECT * FROM usuario WHERE usuario='" + imputUsuario + "' AND contrasenia='" + inputContrasenia + "' ";
             statement.executeQuery(sql);
             if (statement.getResultSet().next()) {
                 return true;
@@ -108,7 +141,7 @@ public class Sistema {
         try {
             PreparedStatement prepareStatement = null;
             Statement statement = connection.createStatement();
-            String sql = "INSERT INTO usuario(nombre, usuario, contrasenia, ID_rol) VALUES ('"+inputNombre+"','"+inputUsuario+"','"+inputContrasenia+"','"+inputRol+"')";
+            String sql = "INSERT INTO usuario(nombre, usuario, contrasenia, ID_rol) VALUES ('" + inputNombre + "','" + inputUsuario + "','" + inputContrasenia + "','" + inputRol + "')";
             prepareStatement = connection.prepareStatement(sql);
             prepareStatement.executeUpdate();
 
@@ -118,10 +151,6 @@ public class Sistema {
     }
 
 
-    public void eliminarUsuario() {
-
-        throw new UnsupportedOperationException();
-    }
 
     /**
      * @param producto

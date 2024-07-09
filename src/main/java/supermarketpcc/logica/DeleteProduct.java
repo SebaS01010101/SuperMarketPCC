@@ -81,7 +81,9 @@ public class DeleteProduct {
             }
         }
     }
-    public void eliminarDeEstante () {
 
+    public void eliminarDeEstante () {
+// en desarrollo
+        new UnsupportedOperationException();
     }
 }

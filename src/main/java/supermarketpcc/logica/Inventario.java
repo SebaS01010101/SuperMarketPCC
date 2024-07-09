@@ -1,23 +1,35 @@
 package supermarketpcc.logica;
 
+import Servlet.SvProducto;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.io.*;
+import java.lang.reflect.Type;
 import java.sql.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
+
 public class Inventario implements Mostrar {
 
-    Collection<Producto> productos;
-    private int id;
-    private String nombre;
-    private Connection connection;
-    private HashMap<String, Estante> estantes;
+    List<Producto> productos;
 
-    public Inventario(int id, String nombre) {
+    private String nombre;
+    private transient Connection connection;
+    private HashMap<String, Estante> estantes;
+    private transient SvProducto svProducto;
+
+    public Inventario() {
+
+    }
+
+    public Inventario(String nombre) {
         this.connection = new ConexionSQL().conexionBD();
-        this.id = id;
         this.nombre = nombre;
         this.estantes = new HashMap<>();
-        this.productos = new ArrayList<>();
+        this.svProducto = new SvProducto();
+        this.productos = svProducto.obtenerProductos();
     }
 
 
@@ -126,8 +138,6 @@ public class Inventario implements Mostrar {
     @Override
     public String toString() {
         return "Inventario{" +
-                "productos=" + productos +
-                ", id=" + id +
                 ", nombre='" + nombre + '\'' +
                 ", estantes=" + estantes +
                 '}';

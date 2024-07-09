@@ -1,21 +1,28 @@
 package supermarketpcc.logica;
 
+import java.io.Serializable;
 import java.util.*;
 
 
-public class Estante extends Inventario implements Organizador {
+public class Estante extends Inventario implements Organizador, Serializable {
 
     private String tipo;
     private double volumenMax;
     private double volumenActual;
     private List<Producto> productos;
 
-    public Estante(int id, String nombre, String tipo, double volumenMax) {
-        super(id, nombre);
+
+    public Estante(){
+
+    }
+
+    public Estante( String nombre, String tipo, double volumenMax) {
+        super(nombre);
         this.tipo = tipo;
         this.volumenMax = volumenMax;
         this.volumenActual = 0;
         this.productos = new ArrayList<>();
+
     }
 
     public boolean puedeAgregarProducto(Producto producto) {
@@ -51,11 +58,36 @@ public class Estante extends Inventario implements Organizador {
 
     public void agregarEstante() {
 
+        throw new UnsupportedOperationException();
 
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public double getVolumenMax() {
+        return volumenMax;
+    }
+
+    public double getVolumenActual() {
+        return volumenActual;
+    }
+
+    @Override
+    public String toString() {
+        return "Estante{" +
+                (super.toString()) +
+                "productos = " + productos +
+                "volumenActual=" + volumenActual +
+                ", tipo='" + tipo + '\'' +
+                ", volumenMax=" + volumenMax +
+                '}';
     }
 
     @Override
     public void ordenar() {
+        throw new UnsupportedOperationException();
 
     }
 }
