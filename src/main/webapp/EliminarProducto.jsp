@@ -8,24 +8,36 @@
     <title>Home</title>
 </head>
 <body>
-<div class="sidebar">
-    <div class="logo">
-        <a href="Home.jsp" class="linkHome">
-            <i class="fa-solid fa-shop icon"></i>
-            <h2>Supermercado PCC</h2>
-        </a>
 
+    <!-- Side Bar -->
+    <div class="sidebar">
+        <div class="logo">
+            <a href="Home.jsp" class="linkHome">
+                <i class="fa-solid fa-shop icon"></i>
+                <h2>Supermercado PCC</h2>
+            </a>
+    
+        </div>
+        <nav>
+            <h5>Productos</h5>
+            <a href="ListadoProductos.jsp">Listado de Productos</a>
+            <a href="agregarProducto.jsp">Registrar Productos</a>
+            <a href="EliminarProducto.jsp">Eliminar Producto</a>
+            <h5>Estantes</h5>
+            <a href="agregarEstantes.jsp">Agregar Estante</a>
+            <a href="agregarProductoAEstante.jsp">Agregar Producto a Estante</a>
+            <a href="mostrarEstante.jsp">Mostrar Estante</a>
+            <h5>Bodega</h5>
+            <a href="bodega.jsp">Bodega</a>
+            <h5>Usuarios</h5>
+            <a href="RegistrarUsuario.jsp">Registrar Usuario</a>
+        </nav>
     </div>
-    <nav>
-        <a href="ListadoProductos.jsp">Listado de Productos</a>
-        <a href="agregarProducto.jsp">Registrar Productos</a>
-        <a href="RegistrarUsuario.jsp">Registrar Usuario</a>
-        <a href="EliminarProducto.jsp">Eliminar Producto</a>
-    </nav>
-</div>
 
+<!-- Formularios para borrar productos -->
 <div class="container">
 
+    <!-- Formulario para borrar -->
     <div class="form">
         <h3>Eliminar por id</h3>
         <form action="" method="post">
@@ -33,7 +45,9 @@
             <input type="text" id="id" name="id" required>
             <input type="submit" value="Eliminar">
         </form>
-    </div>
+    </div
+
+        <!-- Codigo java para borrar producto -->
     <%
         DeleteProduct deleteProduct = new DeleteProduct();
         if (request.getParameter("id") != null) {
@@ -42,6 +56,7 @@
         }
     %>
 
+            <!-- Formulario para borrar -->
     <div class="form">
         <h3>Eliminar por nombre</h3>
         <form action="" method="post">
@@ -50,6 +65,7 @@
             <input type="submit" value="Eliminar">
         </form>
     </div>
+    <!-- Codigo java para borrar producto -->
     <%
         if (request.getParameter("nombre") != null) {
             String nombre = request.getParameter("nombre");
@@ -57,6 +73,7 @@
         }
     %>
 
+    <!-- Formulario para borrar -->
     <div class="form">
         <h3>Eliminar por codigo de barras</h3>
         <form action="" method="post">
@@ -65,6 +82,7 @@
             <input type="submit" value="Eliminar">
         </form>
     </div>
+    <!-- Codigo java para borrar producto -->
     <%
         if (request.getParameter("codigo") != null) {
             String codigo = request.getParameter("codigo");
