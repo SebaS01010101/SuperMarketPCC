@@ -142,11 +142,11 @@ public class Sistema {
 
     public void serializableEstantes(List<Estante> estantesActualizados) {
         try {
-            FileOutputStream fileOut = new FileOutputStream("estantes.dat");
+            FileOutputStream fileOut = new FileOutputStream("estantes.json");
             ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
             objectOut.writeObject(estantesActualizados);
             objectOut.close();
-            System.out.println("Estantes serializados en estantes.dat");
+            System.out.println("Estantes serializados en estantes.json");
         } catch (Exception ex) {
             ex.printStackTrace();
         }

@@ -49,8 +49,8 @@
 
         <!-- Codigo java para borrar producto -->
     <%
-            SvProducto deleteProduct = new SvProducto();
-            if (request.getParameter("id") != null) {
+        SvProducto deleteProduct = new SvProducto();
+        if (request.getParameter("id") != null) {
             int id = Integer.parseInt(request.getParameter("id"));
             deleteProduct.eliminarPorID(id);
         }
