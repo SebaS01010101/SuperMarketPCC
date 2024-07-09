@@ -12,58 +12,27 @@ public class Sistema {
     private transient SvProducto svProducto;
     private transient Connection connection;
     private List<Estante> estantes;
+    private Bodega bodega;
 
     public Sistema() {
         this.inventario = new Inventario("Inventario Principal");
         this.svProducto = new SvProducto();
         this.connection = new ConexionSQL().conexionBD();
         this.estantes = new ArrayList<>();
+        this.bodega = new Bodega("Bodega Principal");
     }
 
 
+    public Producto buscarProductoPorId(int id) {
+        List<Producto> productos = svProducto.obtenerProductos();
 
-    public void agregarEstante(String nombre, String tipo , double volumenMax) {
-        System.out.println("Nombre: " + nombre + " Tipo: " + tipo + " Volumen Max: " + volumenMax);
-        Estante estante = new Estante(nombre, tipo, volumenMax);
-        inventario.agregarEstante(tipo, estante);
-        estantes.add(estante);
-    }
-
-    public void agregarProductoEstante(Producto producto, String tipoEstante) {
-        Estante estante = inventario.obtenerEstante(tipoEstante);
-        if (estante != null) {
-            estante.agregarProducto(producto);
-        } else {
-            System.out.println("Estante de tipo " + tipoEstante + " no existe.");
-        }
-    }
-
-    public void cargarProductosEnEstantes(int id) {
-
-        Producto producto = buscarProductoPorId(id);
-
-        if (producto != null) {
-            Map<Class<? extends Producto>, String> tipoEstanteMap = new HashMap<>();
-            tipoEstanteMap.put(Congelado.class, "Congelados");
-            tipoEstanteMap.put(FrutaVerdura.class, "Frutas y Verduras");
-            tipoEstanteMap.put(Bebestible.class, "Bebestibles");
-            tipoEstanteMap.put(Alimento.class, "Alimento");
-            tipoEstanteMap.put(NoAlimento.class, "No Alimento");
-
-            String tipoEstante = tipoEstanteMap.get(producto.getClass());
-
-            if (tipoEstante != null) {
-                Estante estante = obtenerEstante(tipoEstante);
-                if (estante != null) {
-                    estante.agregarProducto(producto);
-                } else {
-                    System.out.println("Estante de tipo " + tipoEstante + " no existe.");
-                }
-            } else {
-                System.out.println("Tipo de producto desconocido: " + producto.getNombre());
+        for (Producto producto : productos) {
+            if (producto.getId() == id) {
+                return producto;
             }
         }
-
+        System.out.println("Producto con ID " + id + " no encontrado.");
+        return null;
     }
 
     public void cargarProductosEnEstantes(int id, List<Estante> estantes) {
@@ -99,33 +68,6 @@ public class Sistema {
         }
     }
 
-
-
-
-    public Estante obtenerEstante(String tipoEstante) {
-        return inventario.obtenerEstante(tipoEstante);
-    }
-
-    public void mostrarProductosEnEstantes() {
-        inventario.mostrarProductosEnEstantes();
-    }
-
-    //intento para jsp seba
-    public List<Producto> obtenerProductos(String tipoEstante) {
-        return inventario.obtenerProductos(tipoEstante);
-    }
-
-    public Producto buscarProductoPorId(int id) {
-        List<Producto> productos = svProducto.obtenerProductos();
-
-        for (Producto producto : productos) {
-            if (producto.getId() == id) {
-                return producto;
-            }
-        }
-        System.out.println("Producto con ID " + id + " no encontrado.");
-        return null;
-    }
 
     //json metodos
     public void serializableEstantes() {
@@ -164,14 +106,54 @@ public class Sistema {
         return estantes;
     }
 
-    public void eliminarUsuario() {
 
-        throw new UnsupportedOperationException();
+    public void serializableBodega() {
+        try {
+            FileOutputStream fileOut = new FileOutputStream("bodega.json");
+            ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
+            objectOut.writeObject(bodega);
+            objectOut.close();
+            System.out.println("Bodega serializada en bodega.json");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
-    public void agregarProductoBodega(Producto producto) {
-        Bodega bodega = new Bodega( "Bodega Principal");
-        bodega.agregarProducto(producto);
+    public void serializableBodega(Bodega bodegaActualizada) {
+        try {
+            FileOutputStream fileOut = new FileOutputStream("bodega.json");
+            ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
+            objectOut.writeObject(bodegaActualizada);
+            objectOut.close();
+            System.out.println("Bodega serializada en bodega.json");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public Bodega deserializableBodega() {
+        try {
+            ObjectInputStream objectIn = new ObjectInputStream(new FileInputStream("bodega.json"));
+            bodega = (Bodega) objectIn.readObject();
+            objectIn.close();
+            System.out.println("Bodega deserializada de bodega.json");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return bodega;
+    }
+
+
+    public void cargarProductoBodega(int id) {
+        Producto productoEnBodega = buscarProductoPorId(id);
+
+        if (productoEnBodega != null) {
+            bodega.agregarProducto(productoEnBodega);
+            System.out.println("Producto agregado a la bodega");
+        } else {
+            System.out.println("Producto con ID " + id + " no encontrado.");
+        }
+
     }
 
     public boolean ingresarUsuario(String imputUsuario, String inputContrasenia) {
@@ -199,41 +181,11 @@ public class Sistema {
             e.printStackTrace();
         }
     }
-    public void eliminarDeEstante () {
-// en desarrollo
+
+    public void eliminarDeEstante() {
+        // en desarrollo
         new UnsupportedOperationException();
     }
 
 
-
-    /**
-     * @param producto
-     */
-    public void registrarProducto(Producto producto) {
-
-        throw new UnsupportedOperationException();
-    }
-
-    public void eliminarProducto() {
-
-        throw new UnsupportedOperationException();
-    }
-
-    /**
-     * @param producto
-     */
-    public void actualizarProducto(Producto producto) {
-
-        throw new UnsupportedOperationException();
-    }
-
-    public void asignarEstanteProducto() {
-
-        throw new UnsupportedOperationException();
-    }
-
-    public void mostrarUbicacionProducto() {
-
-        throw new UnsupportedOperationException();
-    }
 }

@@ -5,11 +5,11 @@ import java.util.List;
 
 public class Bodega extends Inventario implements Organizador {
 
-    List<Producto> productos;
 
+    List<Producto> productos ;
     public Bodega( String nombre) {
-        super( nombre);
-        this.productos = new ArrayList<>();
+        super(nombre);
+       this.productos = new ArrayList<>();
     }
 
     @Override
@@ -19,5 +19,12 @@ public class Bodega extends Inventario implements Organizador {
 
     public void agregarProducto(Producto producto) {
         productos.add(producto);
+    }
+
+    @Override
+    public String toString() {
+        return "Bodega{" +
+                "productos=" + productos +
+                '}';
     }
 }
