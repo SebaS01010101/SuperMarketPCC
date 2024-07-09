@@ -149,6 +149,10 @@ public class Sistema {
             e.printStackTrace();
         }
     }
+    public void eliminarDeEstante () {
+// en desarrollo
+        new UnsupportedOperationException();
+    }
 
 
 

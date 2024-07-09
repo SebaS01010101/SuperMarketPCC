@@ -35,7 +35,10 @@ class SistemaTest {
     }
 
     @Test
-    void registrarProducto() {
+    void buscarProductoPorId() {
+        int ID = 1;
+        Producto producto = sistema.buscarProductoPorId(ID);
+        assertEquals("chocman", producto.getNombre());
     }
 
     @Test

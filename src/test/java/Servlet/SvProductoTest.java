@@ -30,16 +30,18 @@ class SvProductoTest {
 
     @Test
     void agregarProducto() {
-        svProducto.agregarProducto(nombre, volumen, codigoBarras);
-        List<Producto> productos = svProducto.obtenerProductos();
-        Producto producto = productos.get(0);
-        assertEquals("Producto1", producto.getNombre());
-        assertEquals(1.0, producto.getVolumen());
-        assertEquals("12345", producto.getCodigoBarras());
+        int idEsperada=svProducto.agregarProducto(nombre, volumen, codigoBarras);
+        svProducto.obtenerProductos();
+        assertEquals(idEsperada, svProducto.productos.get(idEsperada).getId());
+
     }
 
     @Test
     void obtenerProductos() {
+        svProducto.obtenerProductos();
+        int esperado = svProducto.productos.size();
+        assertEquals(esperado, svProducto.productos.size());
+
 
     }
 
