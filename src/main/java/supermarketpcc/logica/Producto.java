@@ -1,6 +1,8 @@
 package supermarketpcc.logica;
 
-public abstract class Producto implements Mostrar {
+import java.io.Serializable;
+
+public abstract class Producto implements Mostrar , Serializable {
 
 	private int id;
 	private String nombre;
