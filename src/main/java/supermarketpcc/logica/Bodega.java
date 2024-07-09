@@ -7,8 +7,8 @@ public class Bodega extends Inventario implements Organizador {
 
     List<Producto> productos;
 
-    public Bodega(int id, String nombre) {
-        super(id, nombre);
+    public Bodega( String nombre) {
+        super( nombre);
         this.productos = new ArrayList<>();
     }
 
