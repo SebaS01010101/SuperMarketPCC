@@ -118,11 +118,6 @@ public class Sistema {
     }
 
 
-    public void eliminarUsuario() {
-
-        throw new UnsupportedOperationException();
-    }
-
     /**
      * @param producto
      */

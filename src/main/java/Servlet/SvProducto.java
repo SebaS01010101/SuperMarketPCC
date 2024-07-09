@@ -19,7 +19,7 @@ public class SvProducto {
     public SvProducto() {
         this.connection = new ConexionSQL().conexionBD();
     }
-
+//Metodo para agregar producto a la base de datos
     public int agregarProducto(String nombre, Double volumen, String codigoBarras) {
         int ultimaID = 0;
         try (Statement statement = connection.createStatement()) {
@@ -39,17 +39,7 @@ public class SvProducto {
         return ultimaID;
 
     }
-
-    public void ingresarUsuario(String imputUsuario, String inputContrasenia) {
-        try (Statement statement = connection.createStatement()) {
-            String sql = "SELECT * FROM usuario WHERE usuario='" + imputUsuario + "' AND contrasenia='" + inputContrasenia + "' ";
-            statement.executeQuery(sql);
-            System.out.println("Usuario ingresado correctamente");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
+//Obtener todos los productos de la base de datos y pasarlos a una lista
     public List<Producto> obtenerProductos() {
 
         try (Statement statement = connection.createStatement()) {
@@ -57,7 +47,6 @@ public class SvProducto {
                     "INNER JOIN tipo_producto a ON p.ID_producto = a.ID_producto " +
                     "INNER JOIN tipo t ON t.ID_tipo = a.ID_tipo;";
             ResultSet resultSet = statement.executeQuery(sql);
-
             while (resultSet.next()) {
                 int id = resultSet.getInt("ID_producto");
                 String nombre = resultSet.getString("nombre");
@@ -94,7 +83,7 @@ public class SvProducto {
         }
         return productos;
     }
-
+//Metodos para obtener los productos de la base de datos{
     public Producto getCongelado(int id, String nombre, double volumen, String codigoBarras) throws SQLException {
         try (Statement statement = connection.createStatement()) {
             String sql = "SELECT temperatura FROM congelado WHERE ID_producto = " + id;
@@ -143,6 +132,9 @@ public class SvProducto {
         }
         return null;
     }
+    //}Fin metodos obtener productos
+
+
 //Metodos insertar congelado{
     public void insertCongelado(String nombre, double volumen, String codigoBarras, int temperatura) throws SQLException {
         int ultimaID = agregarProducto(nombre, volumen, codigoBarras);
