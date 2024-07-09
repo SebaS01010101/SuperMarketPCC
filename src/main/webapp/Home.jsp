@@ -7,6 +7,7 @@
     <title>Home</title>
 </head>
 <body>
+    S
 <!-- Side Bar -->
 <div class="sidebar">
     <div class="logo">
@@ -17,10 +18,16 @@
 
     </div>
     <nav>
+        <h5>Productos</h5>
         <a href="ListadoProductos.jsp">Listado de Productos</a>
         <a href="agregarProducto.jsp">Registrar Productos</a>
-        <a href="RegistrarUsuario.jsp">Registrar Usuario</a>
         <a href="EliminarProducto.jsp">Eliminar Producto</a>
+        <h5>Estantes</h5>
+        <a href="agregarEstantes.jsp">Agregar Estante</a>
+        <h5>Bodega</h5>
+        <a href="bodega.jsp">Bodega</a>
+        <h5>Usuarios</h5>
+        <a href="RegistrarUsuario.jsp">Registrar Usuario</a>
     </nav>
 </div>
 

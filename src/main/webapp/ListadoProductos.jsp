@@ -11,21 +11,29 @@
     <title>Listado de Productos</title>
 </head>
 <body>
-<div class="sidebar">
-    <div class="logo">
-        <a href="Home.jsp" class="linkHome">
-            <i class="fa-solid fa-shop icon"></i>
-            <h2>Supermercado PCC</h2>
-        </a>
 
+    <!-- Side Bar -->
+    <div class="sidebar">
+        <div class="logo">
+            <a href="Home.jsp" class="linkHome">
+                <i class="fa-solid fa-shop icon"></i>
+                <h2>Supermercado PCC</h2>
+            </a>
+    
+        </div>
+        <nav>
+            <h5>Productos</h5>
+            <a href="ListadoProductos.jsp">Listado de Productos</a>
+            <a href="agregarProducto.jsp">Registrar Productos</a>
+            <a href="EliminarProducto.jsp">Eliminar Producto</a>
+            <h5>Estantes</h5>
+            <a href="agregarEstantes.jsp">Agregar Estante</a>
+            <h5>Bodega</h5>
+            <a href="bodega.jsp">Bodega</a>
+            <h5>Usuarios</h5>
+            <a href="RegistrarUsuario.jsp">Registrar Usuario</a>
+        </nav>
     </div>
-    <nav>
-        <a href="ListadoProductos.jsp">Listado de Productos</a>
-        <a href="agregarProducto.jsp">Registrar Productos</a>
-        <a href="RegistrarUsuario.jsp">Registrar Usuario</a>
-        <a href="EliminarProducto.jsp">Eliminar Producto</a>
-    </nav>
-</div>
 
 
 <div class="main-content">
@@ -37,6 +45,8 @@
                 <th>Codigo de barra</th>
                 <th>Volumen</th>
             </tr>
+
+<!-- Codigo Java -->
 <%
         try {
             SvProducto sv = new SvProducto();

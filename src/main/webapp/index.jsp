@@ -32,6 +32,8 @@
     </form>
 </div>
 
+<!-- Codigo Java -->
+
 <%
     if (request.getParameter("usuario") != null && request.getParameter("contrasena") != null) {
 
