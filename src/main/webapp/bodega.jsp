@@ -1,6 +1,7 @@
 <%@ page import="supermarketpcc.logica.Sistema" %>
 <%@ page import="supermarketpcc.logica.Producto" %>
 <%@ page import="java.util.*" %>
+<%@ page import="java.io.File" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -37,53 +38,32 @@
 
     <div class="content">
         <h2>Bodega</h2>
-        <table>
-            <thead>
-            <tr>
-                <th>Nombre</th>
-                <th>Stock</th>
-            </tr>
-            </thead>
-            <tbody>
-            <%
-                Sistema sistema = new Sistema();
-                List<Producto> productos = null;
+    <%
+        File archivo = new File("bodega.json");
+        Sistema sistema = new Sistema();
+        List<Producto> productos;
+        if (archivo.exists()){
+             productos = sistema.deserializableBodega().getProductos();
+        }else {
+            sistema.serializableBodega();
+            productos = sistema.deserializableBodega().getProductos();
+        }
 
-                try {
+        if (productos != null && !productos.isEmpty()) {
+            out.println("<table>");
+            out.println("<tr><th>Nombre</th><th>Stock</th></tr>");
+            for (Producto producto : productos) {
+                out.println("<tr>");
+                out.println("<td>" + producto.getNombre() + "</td>");
+               // out.println("<td>" + producto.getStock() + "</td>");
+                out.println("</tr>");
+            }
+            out.println("</table>");
+        } else {
+            out.println("<p>No hay productos en la bodega.</p>");
+        }
+    %>
 
-                    productos = sistema.deserializableBodega().getProductos();
-                } catch (Exception e) {
-                    System.out.println("Error al deserializar: " + e.getMessage());
-                    productos = new ArrayList<>();
-                }
-
-
-                if (productos == null || productos.isEmpty()) {
-
-                    sistema.serializableBodega();
-                    productos = sistema.deserializableBodega().getProductos();
-                }
-
-
-                if (productos != null && !productos.isEmpty()) {
-                    for (Producto producto : productos) {
-            %>
-            <tr>
-                <td><%= producto.getNombre() %></td>
-            </tr>
-            <%
-                }
-            } else {
-
-            %>
-            <tr>
-                <td colspan="2">No hay productos en la bodega.</td>
-            </tr>
-            <%
-                }
-            %>
-            </tbody>
-        </table>
     </div>
 
 </body>
