@@ -1,20 +1,13 @@
 package supermarketpcc.logica;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class Bodega extends Inventario implements Organizador {
-
 
     List<Producto> productos ;
     public Bodega( String nombre) {
         super(nombre);
        this.productos = new ArrayList<>();
-    }
-
-    @Override
-    public void ordenar() {
-
     }
 
     public void agregarProducto(Producto producto) {
@@ -26,5 +19,10 @@ public class Bodega extends Inventario implements Organizador {
         return "Bodega{" +
                 "productos=" + productos +
                 '}';
+    }
+
+    @Override
+    public void ordenar() {
+        productos.sort(Comparator.comparing(Producto::getNombre));
     }
 }
