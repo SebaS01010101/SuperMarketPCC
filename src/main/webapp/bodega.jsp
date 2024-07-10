@@ -1,9 +1,12 @@
+<%@ page import="supermarketpcc.logica.Sistema" %>
+<%@ page import="supermarketpcc.logica.Producto" %>
+<%@ page import="java.util.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.5.2/css/all.css" crossorigin="anonymous">
     <link rel="stylesheet" href="css/sidebar.css">
-    <link rel="stylesheet" href="css/">
+    <link rel="stylesheet" href="css/Listados.css">
     <title>Home</title>
 </head>
 <body>
@@ -31,10 +34,57 @@
             <a href="RegistrarUsuario.jsp">Registrar Usuario</a>
         </nav>
     </div>
-    
-<div class="content">
-    <!-- Listado de bodega -->
-</div>
+
+    <div class="content">
+        <h2>Bodega</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Stock</th>
+            </tr>
+            </thead>
+            <tbody>
+            <%
+                Sistema sistema = new Sistema();
+                List<Producto> productos = null;
+
+                try {
+
+                    productos = sistema.deserializableBodega().getProductos();
+                } catch (Exception e) {
+                    System.out.println("Error al deserializar: " + e.getMessage());
+                    productos = new ArrayList<>();
+                }
+
+
+                if (productos == null || productos.isEmpty()) {
+
+                    sistema.serializableBodega();
+                    productos = sistema.deserializableBodega().getProductos();
+                }
+
+
+                if (productos != null && !productos.isEmpty()) {
+                    for (Producto producto : productos) {
+            %>
+            <tr>
+                <td><%= producto.getNombre() %></td>
+            </tr>
+            <%
+                }
+            } else {
+
+            %>
+            <tr>
+                <td colspan="2">No hay productos en la bodega.</td>
+            </tr>
+            <%
+                }
+            %>
+            </tbody>
+        </table>
+    </div>
 
 </body>
 </html>

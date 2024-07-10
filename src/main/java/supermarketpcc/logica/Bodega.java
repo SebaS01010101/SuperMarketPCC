@@ -14,6 +14,16 @@ public class Bodega extends Inventario implements Organizador {
         productos.add(producto);
     }
 
+    public int stockProducto(Producto producto){
+        int stock = 0;
+        for (Producto p: productos) {
+            if (p.equals(producto)){
+                stock++;
+            }
+        }
+        return stock;
+    }
+
     @Override
     public String toString() {
         return "Bodega{" +
@@ -25,4 +35,6 @@ public class Bodega extends Inventario implements Organizador {
     public void ordenar() {
         productos.sort(Comparator.comparing(Producto::getNombre));
     }
+
+
 }
