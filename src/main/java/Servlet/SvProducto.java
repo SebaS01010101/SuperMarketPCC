@@ -224,54 +224,37 @@ public class SvProducto {
     }
 //}Fin metodos insertar no alimento
 
-    public void eliminarPorID(int id) {
+    //Metodos para eliminar producto{
+    public boolean eliminarPorID(int id) {
         PreparedStatement preparedStatement = null;
         try {
             String sql = "DELETE FROM producto WHERE ID_producto = " + id + "";
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.executeUpdate();
+            System.out.println("Producto eliminado");
+            return true;
         } catch (SQLException e) {
             e.printStackTrace();
-        }finally {
-            try {
-                if (preparedStatement != null) {
-                    preparedStatement.close();
-                }
-                if (connection != null) {
-                    connection.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         }
+        return false;
     }
 
-    public void eliminarTodoProducto (String codigo){
+    public boolean eliminarTodoProducto (String codigo){
         PreparedStatement preparedStatement = null;
         try {
             String sql = "DELETE FROM producto WHERE codigo_de_barras = " + codigo + "";
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.executeUpdate();
             System.out.println("Producto eliminado");
+            return true;
         } catch (SQLException e) {
             System.err.println("Error al eliminar el producto");
             e.printStackTrace();
-        } finally {
-            try {
-                if (preparedStatement != null) {
-                    preparedStatement.close();
-                }
-                if (connection != null) {
-                    connection.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         }
-
+        return false;
     }
 
-    public void eliminarPorNombre (String nombre){
+    public boolean eliminarPorNombre (String nombre){
         PreparedStatement preparedStatement = null;
         try {
             String sql = "DELETE FROM producto WHERE nombre LIKE '%" + nombre + "%'";
@@ -280,20 +263,12 @@ public class SvProducto {
             preparedStatement.close();
             connection.close();
             System.out.println("Producto eliminado");
+            return true;
         } catch (SQLException e) {
             System.err.println("Error al eliminar el producto");
             e.printStackTrace();
-        } finally {
-            try {
-                if (preparedStatement != null) {
-                    preparedStatement.close();
-                }
-                if (connection != null) {
-                    connection.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         }
+        return false;
     }
+    //}Fin metodos eliminar producto
 }

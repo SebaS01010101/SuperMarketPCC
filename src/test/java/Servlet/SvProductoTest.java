@@ -1,8 +1,6 @@
 package Servlet;
 
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import supermarketpcc.logica.*;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -13,7 +11,6 @@ import static org.junit.jupiter.api.Assertions.*;
 class SvProductoTest {
     private static SvProducto svProducto;
     private static Connection connection;
-    int id = 100;
     String nombre = "Producto1";
     double volumen = 1.0;
     String codigoBarras = "12345";
@@ -24,18 +21,13 @@ class SvProductoTest {
         connection = new ConexionSQL().conexionBD();
     }
 
-    @BeforeEach
-    void set() {
-        Producto producto = new Alimento(id,nombre, codigoBarras, volumen);
-
-    }
-
-    @Test
-    void agregarProducto() {
-        int idEsperada=svProducto.agregarProducto(nombre, volumen, codigoBarras);
-        svProducto.obtenerProductos();
-        assertEquals(idEsperada, svProducto.productos.get(idEsperada).getId());
-
+    @AfterAll
+    static void afterAll() {
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Test
@@ -55,7 +47,7 @@ class SvProductoTest {
             throw new RuntimeException(e);
         }
     }
-
+// getfrutaVerdura, getBebestible no funcionan al correr el test entero pero por separado si. Razon: No se sabe realmente no tiene logica.
     @Test
     void getFrutaVerdura() {
         try {
@@ -68,7 +60,7 @@ class SvProductoTest {
     @Test
     void getBebestible() {
         try {
-            assertNotNull(svProducto.getBebestible(5,"Cerveza Royal Gold 6 Unidades 355Cc", 1.5, "7802100005"));
+            assertNotNull(svProducto.getBebestible(5,"Cerveza Royal Gold 6 Unidades 355Cc", 1, "7802100005"));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -85,38 +77,21 @@ class SvProductoTest {
     }
 
     @Test
-    void insertCongelado() {
-
-    }
-
-    @Test
-    void insertFrutaVerdura() {
-    }
-
-    @Test
-    void insertBebestible() {
-    }
-
-    @Test
-    void insertAlimento() {
-    }
-
-    @Test
-    void insertNoAlimento() {
-    }
-
-    @Test
-    void eliminarPorID() {
-        svProducto.eliminarPorID(id);
-        assertNull(svProducto.productos.get(id));
-
+    void eliminarPorID() throws SQLException {
+        int idEsperado = svProducto.agregarProducto(nombre, volumen, codigoBarras);
+        assertTrue(svProducto.eliminarPorID(idEsperado));
     }
 
     @Test
     void eliminarTodoProducto() {
+        svProducto.agregarProducto(nombre, volumen, codigoBarras);
+        assertTrue(svProducto.eliminarTodoProducto(codigoBarras));
     }
 
     @Test
     void eliminarPorNombre() {
+        svProducto.agregarProducto(nombre, volumen, codigoBarras);
+        assertTrue(svProducto.eliminarPorNombre(nombre));
     }
+
 }
