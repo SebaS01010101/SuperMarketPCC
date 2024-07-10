@@ -9,10 +9,7 @@ public class NoAlimento extends Producto {
         this.descripcion = descripcion;
     }
 
-    @Override
-    public void mostrar() {
 
-    }
 
     public String getDescripcion() {
         return descripcion;
