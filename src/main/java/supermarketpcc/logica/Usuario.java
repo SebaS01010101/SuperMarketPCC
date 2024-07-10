@@ -1,24 +1,18 @@
 package supermarketpcc.logica;
 
-public class Usuario implements Mostrar {
+public class Usuario {
 
-	private String nombre;
-	private String usuario;
-	private String contrasenia;
-	private String rol;
+    private String nombre;
+    private String usuario;
+    private String contrasenia;
+    private String rol;
 
-	public Usuario() {
-	}
+    public Usuario(String nombre, String usuario, String contrasenia, String rol) {
+        this.nombre = nombre;
+        this.usuario = usuario;
+        this.contrasenia = contrasenia;
+        this.rol = rol;
+    }
 
-	public Usuario(String nombre, String usuario, String contrasenia, String rol) {
-		this.nombre = nombre;
-		this.usuario = usuario;
-		this.contrasenia = contrasenia;
-		this.rol = rol;
-	}
 
-	@Override
-	public void mostrar() {
-
-	}
 }

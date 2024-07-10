@@ -1,19 +1,15 @@
 package supermarketpcc.logica;
 
-import java.io.Serializable;
 import java.util.*;
 
-
-public class Estante extends Inventario implements Organizador{
-
-    private static final long serialVersionUID = 1L;
+public class Estante extends Inventario implements Organizador {
 
     private String tipo;
     private double volumenMax;
     private double volumenActual;
     private List<Producto> productosEstante;
 
-    public Estante( String nombre, String tipo, double volumenMax) {
+    public Estante(String nombre, String tipo, double volumenMax) {
         super(nombre);
         this.tipo = tipo;
         this.volumenMax = volumenMax;
@@ -22,10 +18,12 @@ public class Estante extends Inventario implements Organizador{
 
     }
 
+    //metodo para ver si se puede agregar un producto en estante
     public boolean puedeAgregarProducto(Producto producto) {
         return volumenActual + producto.getVolumen() <= volumenMax;
     }
 
+    //metodo que verifica el volumen de estante para añadir producto
     public void agregarProducto(Producto producto) {
         if (puedeAgregarProducto(producto)) {
             volumenActual += producto.getVolumen();
@@ -36,39 +34,12 @@ public class Estante extends Inventario implements Organizador{
         }
     }
 
-    public void mostrarProductos(Collection<Producto> productos) {
-        System.out.println("Estante: " + tipo + " (Volumen máximo: " + volumenMax + ", Volumen actual: " + volumenActual + ")");
-        productos.forEach(producto -> System.out.println(" - " + producto.getNombre() + " (Volumen: " + producto.getVolumen() + ")"));
-    }
-
-    //intento para jsp seba
-
     public List<Producto> getProductos() {
         return productosEstante;
     }
 
-
-    public void eliminarProductoEstante() {
-
-        throw new UnsupportedOperationException();
-    }
-
-    public void agregarEstante() {
-
-        throw new UnsupportedOperationException();
-
-    }
-
     public String getTipo() {
         return tipo;
-    }
-
-    public double getVolumenMax() {
-        return volumenMax;
-    }
-
-    public double getVolumenActual() {
-        return volumenActual;
     }
 
     @Override
@@ -84,7 +55,6 @@ public class Estante extends Inventario implements Organizador{
 
     @Override
     public void ordenar() {
-        throw new UnsupportedOperationException();
-
+        productosEstante.sort(Comparator.comparing(Producto::getId));
     }
 }

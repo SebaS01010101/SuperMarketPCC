@@ -41,7 +41,5 @@ class SistemaTest {
         assertEquals("chocman", producto.getNombre());
     }
 
-    @Test
-    void eliminarProducto() {
-    }
+
 }
