@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.5.2/css/all.css" crossorigin="anonymous">
     <link rel="stylesheet" href="css/sidebar.css">
     <link rel="stylesheet" href="css/agregarProductosA.css">
-    <title>Home</title>
+    <title></title>
 </head>
 <body>
     <!-- Side Bar -->
@@ -39,7 +39,7 @@
     </div>
 
     <div class="form">
-        <h2>Agregar Producto A Estante</h2>
+        <h2>Agregar Producto A Bodega</h2>
         <form action="" method="post">
 
             <div class="productoIngresado">
@@ -52,7 +52,7 @@
         </form>
     </div>
         <!-- Codigo java llamado al formulario y serializa listado de estantes -->
-        -->
+
     <%
         if (request.getParameter("idProducto") != null) {
             int idProducto = Integer.parseInt(request.getParameter("idProducto"));

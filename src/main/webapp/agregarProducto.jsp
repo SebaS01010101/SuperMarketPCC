@@ -83,7 +83,7 @@
     </div>
 </div>
 
-<!-- Codigo java del formulario }
+<!-- Codigo java del formulario 
 toma los datos ingresados y los utiliza para registrar un producto en la base de datos
 -->
 

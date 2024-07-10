@@ -40,15 +40,17 @@
 
     <!-- Formulario para borrar -->
     <div class="form">
+    </div>
         <h3>Eliminar por id</h3>
         <form action="" method="post">
             <label for="id">Id:</label>
             <input type="text" id="id" name="id" required>
             <input type="submit" value="Eliminar">
         </form>
-    </div
+    </div>
 
-        <!-- Codigo java para borrar producto -->
+    <!-- Codigo java para borrar producto --> 
+       
     <%
         SvProducto deleteProduct = new SvProducto();
         if (request.getParameter("id") != null) {
