@@ -7,9 +7,6 @@ public class Usuario implements Mostrar {
 	private String contrasenia;
 	private String rol;
 
-	public Usuario() {
-	}
-
 	public Usuario(String nombre, String usuario, String contrasenia, String rol) {
 		this.nombre = nombre;
 		this.usuario = usuario;

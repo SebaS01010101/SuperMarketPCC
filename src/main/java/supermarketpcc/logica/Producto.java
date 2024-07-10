@@ -9,9 +9,6 @@ public abstract class Producto implements Mostrar , Serializable {
 	private String codigoBarras;
 	private Double volumen;
 
-	public Producto() {
-	}
-
 	public Producto(int id, String nombre, String codigoBarras, Double volumen) {
 		this.id = id;
 		this.nombre = nombre;
