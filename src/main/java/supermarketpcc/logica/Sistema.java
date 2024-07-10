@@ -148,11 +148,9 @@ public class Sistema {
 
     public void cargarProductoBodega(int id) {
         Producto productoEnBodega = buscarProductoPorId(id);
-
         if (productoEnBodega != null) {
             bodega.agregarProducto(productoEnBodega);
             System.out.println("Producto agregado a la bodega");
-
         } else {
             System.out.println("Producto con ID " + id + " no encontrado.");
         }
