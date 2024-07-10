@@ -109,18 +109,6 @@ public class Sistema {
     }
 
 
-    public void serializableBodega() {
-        try {
-            FileOutputStream fileOut = new FileOutputStream("bodega.json");
-            ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
-            objectOut.writeObject(bodega);
-            objectOut.close();
-            System.out.println("Bodega serializada en bodega.json");
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
-
     public void serializableBodega(Bodega bodegaActualizada) {
         try {
             FileOutputStream fileOut = new FileOutputStream("bodega.json");
