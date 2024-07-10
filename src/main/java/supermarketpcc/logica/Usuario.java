@@ -1,6 +1,6 @@
 package supermarketpcc.logica;
 
-public class Usuario implements Mostrar {
+public class Usuario {
 
     private String nombre;
     private String usuario;
@@ -14,8 +14,5 @@ public class Usuario implements Mostrar {
         this.rol = rol;
     }
 
-    @Override
-    public void mostrar() {
 
-    }
 }

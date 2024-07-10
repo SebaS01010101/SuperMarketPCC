@@ -7,7 +7,7 @@ import java.sql.*;
 import java.util.*;
 
 
-public class Inventario implements Mostrar, Serializable {
+public class Inventario implements Serializable {
 
     private List<Producto> productos;
     private String nombre;
@@ -37,10 +37,6 @@ public class Inventario implements Mostrar, Serializable {
         return estantes;
     }
 
-    @Override
-    public void mostrar() {
-
-    }
 
     @Override
     public String toString() {
