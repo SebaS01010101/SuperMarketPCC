@@ -5,7 +5,7 @@ import Servlet.SvProducto;
 import java.io.Serializable;
 import java.sql.*;
 import java.util.*;
-import java.util.stream.Collectors;
+
 
 
 public class Inventario implements Mostrar, Serializable {
@@ -25,9 +25,6 @@ public class Inventario implements Mostrar, Serializable {
         this.productos = svProducto.obtenerProductos();
     }
 
-
-
-
     public List<Producto> getProductos() {
         return productos;
     }
@@ -40,8 +37,6 @@ public class Inventario implements Mostrar, Serializable {
     public HashMap<String, Estante> getEstantes() {
         return estantes;
     }
-
-
 
     @Override
     public void mostrar() {
