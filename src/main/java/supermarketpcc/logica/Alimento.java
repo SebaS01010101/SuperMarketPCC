@@ -3,7 +3,6 @@ package supermarketpcc.logica;
 public class Alimento extends Producto {
 
 
-
     public Alimento(int id, String nombre, String codigoBarras, Double volumen) {
         super(id, nombre, codigoBarras, volumen);
     }
@@ -14,10 +13,9 @@ public class Alimento extends Producto {
     }
 
 
-
     @Override
     public String toString() {
-        return "Alimento{"+super.toString();
+        return "Alimento{" + super.toString();
     }
 
 }

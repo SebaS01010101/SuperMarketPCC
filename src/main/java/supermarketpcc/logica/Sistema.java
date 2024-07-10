@@ -22,7 +22,7 @@ public class Sistema {
         this.bodega = new Bodega("Bodega Principal");
     }
 
-
+    //metodo para buscar producto por id
     public Producto buscarProductoPorId(int id) {
         List<Producto> productos = svProducto.obtenerProductos();
 
@@ -35,7 +35,7 @@ public class Sistema {
         return null;
     }
 
-
+    //metodo para agregar producto en estante
     public void cargarProductosEnEstantes(int id, List<Estante> estantes) {
         Producto producto = buscarProductoPorId(id);
 
@@ -72,6 +72,7 @@ public class Sistema {
 
 
     //json metodos
+    //metodo para serializar estantes
     public void serializableEstantes() {
         try {
             FileOutputStream fileOut = new FileOutputStream("estantes.json");
@@ -84,6 +85,7 @@ public class Sistema {
         }
     }
 
+    //metodo para serializar productos en estantes
     public void serializableEstantes(List<Estante> estantesActualizados) {
         try {
             FileOutputStream fileOut = new FileOutputStream("estantes.json");
@@ -96,6 +98,7 @@ public class Sistema {
         }
     }
 
+    //metodo para deserializar estantes
     public List<Estante> deserializableEstantes() {
         try {
             ObjectInputStream objectIn = new ObjectInputStream(new FileInputStream("estantes.json"));
@@ -108,7 +111,7 @@ public class Sistema {
         return estantes;
     }
 
-
+    //metodo para serializar bodega
     public void serializableBodega(Bodega bodegaActualizada) {
         try {
             FileOutputStream fileOut = new FileOutputStream("bodega.json");
@@ -121,6 +124,7 @@ public class Sistema {
         }
     }
 
+    //metodo para deserializar bodega
     public Bodega deserializableBodega() {
         try {
             ObjectInputStream objectIn = new ObjectInputStream(new FileInputStream("bodega.json"));
@@ -133,7 +137,7 @@ public class Sistema {
         return bodega;
     }
 
-
+    //metodo para cargar productos en bodega
     public void cargarProductoBodega(int id) {
         Producto productoEnBodega = buscarProductoPorId(id);
         if (productoEnBodega != null) {
@@ -145,6 +149,7 @@ public class Sistema {
 
     }
 
+    //metodo para ingresar usuario
     public boolean ingresarUsuario(String imputUsuario, String inputContrasenia) {
         try (Statement statement = connection.createStatement()) {
             String sql = "SELECT * FROM usuario WHERE usuario='" + imputUsuario + "' AND contrasenia='" + inputContrasenia + "' ";
@@ -158,6 +163,7 @@ public class Sistema {
         return false;
     }
 
+    //metodo para registrar usuario
     public void registrarUsuario(String inputNombre, String inputUsuario, String inputContrasenia, String inputRol) {
         try {
             PreparedStatement prepareStatement = null;
@@ -170,7 +176,6 @@ public class Sistema {
             e.printStackTrace();
         }
     }
-
 
 
 }

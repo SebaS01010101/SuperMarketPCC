@@ -34,7 +34,6 @@ public abstract class Producto implements Mostrar, Serializable {
     }
 
 
-
     @Override
     public String toString() {
         return "" +

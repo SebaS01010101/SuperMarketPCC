@@ -29,13 +29,13 @@ public class ConexionSQL {
         return connection;
     }
 
-    public void cerrarConexion(){
-        try{
-            if (connection != null && !connection.isClosed()){
+    public void cerrarConexion() {
+        try {
+            if (connection != null && !connection.isClosed()) {
                 connection.close();
                 System.out.println("Conexión cerrada");
             }
-        } catch (SQLException e){
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
             throw new RuntimeException("No se ha podido cerrar la conexión");
         }

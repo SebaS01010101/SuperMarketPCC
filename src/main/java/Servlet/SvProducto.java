@@ -15,7 +15,8 @@ public class SvProducto {
     public SvProducto() {
         this.connection = new ConexionSQL().conexionBD();
     }
-//Metodo para agregar producto a la base de datos
+
+    //Metodo para agregar producto a la base de datos
     public int agregarProducto(String nombre, Double volumen, String codigoBarras) {
         int ultimaID = 0;
         try (Statement statement = connection.createStatement()) {
@@ -35,7 +36,8 @@ public class SvProducto {
         return ultimaID;
 
     }
-//Obtener todos los productos de la base de datos y pasarlos a una lista
+
+    //Obtener todos los productos de la base de datos y pasarlos a una lista
     public List<Producto> obtenerProductos() {
 
         try (Statement statement = connection.createStatement()) {
@@ -79,7 +81,8 @@ public class SvProducto {
         }
         return productos;
     }
-//Metodos para obtener los productos de la base de datos{
+
+    //Metodos para obtener los productos de la base de datos{
     public Producto getCongelado(int id, String nombre, double volumen, String codigoBarras) throws SQLException {
         try (Statement statement = connection.createStatement()) {
             String sql = "SELECT temperatura FROM congelado WHERE ID_producto = " + id;
@@ -131,15 +134,16 @@ public class SvProducto {
     //}Fin metodos obtener productos
 
 
-//Metodos insertar congelado{
+    //Metodos insertar congelado{
     public void insertCongelado(String nombre, double volumen, String codigoBarras, int temperatura) throws SQLException {
         int ultimaID = agregarProducto(nombre, volumen, codigoBarras);
         try (Statement statement = connection.createStatement()) {
-            String sql = "INSERT INTO congelado(ID_producto, temperatura, ID_tipo) VALUES ('"+ultimaID+"','" + temperatura + "','1')";
+            String sql = "INSERT INTO congelado(ID_producto, temperatura, ID_tipo) VALUES ('" + ultimaID + "','" + temperatura + "','1')";
             statement.executeUpdate(sql);
             insertTipoProductoCongelado(ultimaID);
         }
     }
+
     public void insertTipoProductoCongelado(int ultimaID) throws SQLException {
         try (Statement statement = connection.createStatement()) {
             String sql = "INSERT INTO tipo_producto(ID_tipo, ID_producto) VALUES ('1','" + ultimaID + "')";
@@ -148,7 +152,7 @@ public class SvProducto {
     }
     //}Fin metodos insertar congelado
 
-//Metodos insertar fruta verdura{
+    //Metodos insertar fruta verdura{
     public void insertFrutaVerdura(String nombre, double volumen, String codigoBarras) throws SQLException {
         int ultimaID = agregarProducto(nombre, volumen, codigoBarras);
         Date fechaIngresoSQL = Date.valueOf(LocalDate.now());
@@ -163,6 +167,7 @@ public class SvProducto {
         }
         System.out.println(nombre + " " + volumen + " " + codigoBarras + " " + fechaIngresoSQL + " " + fechaCaducidadSQL);
     }
+
     public void insertTipoProductoFrutaVerdura(int ultimaID) throws SQLException {
         try (Statement statement = connection.createStatement()) {
             String sql = "INSERT INTO tipo_producto(ID_tipo, ID_producto) VALUES ('2','" + ultimaID + "')";
@@ -171,7 +176,7 @@ public class SvProducto {
     }
     //}Fin metodos insertar fruta verdura
 
-//Metodos insertar bebestible{
+    //Metodos insertar bebestible{
     public void insertBebestible(String nombre, double volumen, String codigoBarras, String tipo) throws SQLException {
         int ultimaID = agregarProducto(nombre, volumen, codigoBarras);
         try (Statement statement = connection.createStatement()) {
@@ -211,11 +216,12 @@ public class SvProducto {
     public void insertNoAlimento(String nombre, double volumen, String codigoBarras, String descripcion) throws SQLException {
         int ultimaID = agregarProducto(nombre, volumen, codigoBarras);
         try (Statement statement = connection.createStatement()) {
-            String sql = "INSERT INTO no_alimento(ID_producto, descripcion) VALUES ('"+ultimaID+"','" + descripcion + "')";
+            String sql = "INSERT INTO no_alimento(ID_producto, descripcion) VALUES ('" + ultimaID + "','" + descripcion + "')";
             statement.executeUpdate(sql);
             insertTipoProductoNoAlimento(ultimaID);
         }
     }
+
     public void insertTipoProductoNoAlimento(int ultimaID) throws SQLException {
         try (Statement statement = connection.createStatement()) {
             String sql = "INSERT INTO tipo_producto(ID_tipo, ID_producto) VALUES ('5','" + ultimaID + "')";
@@ -239,7 +245,7 @@ public class SvProducto {
         return false;
     }
 
-    public boolean eliminarTodoProducto (String codigo){
+    public boolean eliminarTodoProducto(String codigo) {
         PreparedStatement preparedStatement = null;
         try {
             String sql = "DELETE FROM producto WHERE codigo_de_barras = " + codigo + "";
@@ -254,7 +260,7 @@ public class SvProducto {
         return false;
     }
 
-    public boolean eliminarPorNombre (String nombre){
+    public boolean eliminarPorNombre(String nombre) {
         PreparedStatement preparedStatement = null;
         try {
             String sql = "DELETE FROM producto WHERE nombre LIKE '%" + nombre + "%'";

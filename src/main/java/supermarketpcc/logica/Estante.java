@@ -18,10 +18,12 @@ public class Estante extends Inventario implements Organizador {
 
     }
 
+    //metodo para ver si se puede agregar un producto en estante
     public boolean puedeAgregarProducto(Producto producto) {
         return volumenActual + producto.getVolumen() <= volumenMax;
     }
 
+    //metodo que verifica el volumen de estante para añadir producto
     public void agregarProducto(Producto producto) {
         if (puedeAgregarProducto(producto)) {
             volumenActual += producto.getVolumen();
