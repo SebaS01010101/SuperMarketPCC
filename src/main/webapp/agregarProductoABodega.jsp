@@ -51,7 +51,8 @@
 
         </form>
     </div>
-        
+        <!-- Codigo java llamado al formulario y serializa listado de estantes -->
+        -->
     <%
         if (request.getParameter("idProducto") != null) {
             int idProducto = Integer.parseInt(request.getParameter("idProducto"));

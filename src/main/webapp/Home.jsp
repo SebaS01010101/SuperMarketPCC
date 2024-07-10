@@ -34,6 +34,7 @@
     </nav>
 </div>
 
+    <!-- Cierra sesion (Solo manda al login) -->
 <div class="main-content">
     <header>
         <h2>Bienvenido, "usuario"</h2>

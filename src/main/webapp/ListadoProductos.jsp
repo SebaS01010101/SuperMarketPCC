@@ -49,7 +49,8 @@
                 <th>Volumen</th>
             </tr>
 
-<!-- Codigo java que genera el listado -->
+<!-- Codigo java que genera el listado
+a partir de la lista de productos-->
 <%
         try {
             SvProducto sv = new SvProducto();

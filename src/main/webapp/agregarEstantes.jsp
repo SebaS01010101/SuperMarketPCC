@@ -64,7 +64,9 @@
     </form>
 </div>
 
-<!-- Codigo java del formulario -->
+<!-- Codigo java del formulario
+ Toma los parametros del formulario y los agrega a la lista de estantes
+ -->
 <%
     Sistema sistema = new Sistema();
     List<Estante> estantes = sistema.deserializableEstantes();

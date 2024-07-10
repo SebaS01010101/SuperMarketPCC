@@ -47,6 +47,8 @@ S
                 <th>Codigo de barra</th>
 
             </tr>
+            <!--    Codigo java que genera el listado
+             trayendo de vuelta la -->
             <%
                 Sistema sistema = new Sistema();
                 Bodega bodega = sistema.deserializableBodega();

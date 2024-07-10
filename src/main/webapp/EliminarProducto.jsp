@@ -94,7 +94,7 @@
 
 
 </div>
-
+<!-- Me equivoque en separarlo cuando podia solo hacer un bloque -->
 
 
 </body>
