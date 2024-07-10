@@ -31,11 +31,13 @@
             <a href="agregarProductoAEstante.jsp">Agregar Producto a Estante</a>
             <a href="mostrarEstante.jsp">Mostrar Estante</a>
             <h5>Bodega</h5>
-            <a href="bodega.jsp">Bodega</a>
+            <a href="agregarProductoABodega.jsp">Agregar Producto a Bodega</a>
+            <a href="mostrarBodega.jsp">Mostrar Bodega</a>
             <h5>Usuarios</h5>
             <a href="RegistrarUsuario.jsp">Registrar Usuario</a>
         </nav>
     </div>
+    
 <!--Div del listado-->
 <div class="content">
         <h2>Listado de Productos</h2>

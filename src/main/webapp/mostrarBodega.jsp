@@ -1,13 +1,17 @@
+<%@ page import="supermarketpcc.logica.Producto" %>
+<%@ page import="java.util.List" %>
+<%@ page import="supermarketpcc.logica.Bodega" %>
+<%@ page import="supermarketpcc.logica.Sistema" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.5.2/css/all.css" crossorigin="anonymous">
     <link rel="stylesheet" href="css/sidebar.css">
-    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/Listados.css">
     <title>Home</title>
 </head>
 <body>
-    S
+S
 <!-- Side Bar -->
 <div class="sidebar">
     <div class="logo">
@@ -34,16 +38,32 @@
     </nav>
 </div>
 
-<div class="main-content">
-    <header>
-        <h2>Bienvenido, "usuario"</h2>
-        <a href="index.jsp" class="logout-btn">
-            <i class="fa-solid fa-door-closed"></i>
-            Cerrar Sesión
-        </a>
-    </header>
-    </section>
-</div>
+<div class="content">
+        <h2>Listado de Productos</h2>
+        <table>
+            <tr>
 
+                <th>Nombre</th>
+                <th>Codigo de barra</th>
+
+            </tr>
+            <%
+                Sistema sistema = new Sistema();
+                Bodega bodega = sistema.deserializableBodega();
+                try{
+                    List<Producto> productos = bodega.getProductos();
+                    for (Producto producto : productos) {
+                        out.println("<tr>");
+                        out.println("<td>" + producto.getNombre() + "</td>");
+                        out.println("<td>" + producto.getCodigoBarras() + "</td>");
+                        out.println("</tr>");
+                    }
+
+                }catch (Exception e){
+                    out.println("Error: " + e.getMessage());
+                }
+            %>
+        </table>
+    </div>
 </body>
 </html>

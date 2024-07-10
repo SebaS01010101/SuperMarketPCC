@@ -8,7 +8,7 @@
 <head>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.5.2/css/all.css" crossorigin="anonymous">
     <link rel="stylesheet" href="css/sidebar.css">
-    <link rel="stylesheet" href="css/agregarProductosAEstante.css">
+    <link rel="stylesheet" href="css/agregarProductosA.css">
     <title>Home</title>
 </head>
 <body>
@@ -32,7 +32,8 @@
         <a href="agregarProductoAEstante.jsp">Agregar Producto a Estante</a>
         <a href="mostrarEstante.jsp">Mostrar Estante</a>
         <h5>Bodega</h5>
-        <a href="bodega.jsp">Bodega</a>
+        <a href="agregarProductoABodega.jsp">Agregar Producto a Bodega</a>
+        <a href="mostrarBodega.jsp">Mostrar Bodega</a>
         <h5>Usuarios</h5>
         <a href="RegistrarUsuario.jsp">Registrar Usuario</a>
     </nav>

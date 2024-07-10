@@ -1,8 +1,11 @@
 package supermarketpcc.logica;
 
+import java.io.Serializable;
 import java.util.*;
 
-public class Bodega extends Inventario implements Organizador {
+public class Bodega extends Inventario implements Organizador , Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private List<Producto> productos ;
 
