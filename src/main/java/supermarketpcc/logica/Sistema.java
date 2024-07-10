@@ -35,16 +35,6 @@ public class Sistema {
         return null;
     }
 
-    private void verificarProductosDuplicados() {
-        Set<Integer> productosEnBodega = new HashSet<>();
-        for (Producto producto : bodega.getProductos()) {
-            productosEnBodega.add(producto.getId());
-        }
-
-        for (Estante estante : estantes) {
-            estante.getProductos().removeIf(producto -> productosEnBodega.contains(producto.getId()));
-        }
-    }
 
     public void cargarProductosEnEstantes(int id, List<Estante> estantes) {
         Producto producto = buscarProductoPorId(id);
@@ -68,7 +58,7 @@ public class Sistema {
                 if (estanteCorrespondiente != null) {
                     estanteCorrespondiente.agregarProducto(producto);
                     System.out.println("Producto agregado al estante de " + tipoEstante);
-                    verificarProductosDuplicados();
+
                 } else {
                     System.out.println("Estante de tipo " + tipoEstante + " no existe.");
                 }
@@ -162,7 +152,7 @@ public class Sistema {
         if (productoEnBodega != null) {
             bodega.agregarProducto(productoEnBodega);
             System.out.println("Producto agregado a la bodega");
-            verificarProductosDuplicados();
+
         } else {
             System.out.println("Producto con ID " + id + " no encontrado.");
         }
@@ -195,10 +185,6 @@ public class Sistema {
         }
     }
 
-    public void eliminarDeEstante() {
-        // en desarrollo
-        new UnsupportedOperationException();
-    }
 
 
 }
