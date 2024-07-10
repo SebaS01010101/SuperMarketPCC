@@ -11,7 +11,7 @@
     <title>Home</title>
 </head>
 <body>
-S
+
 <!-- Side Bar -->
 <div class="sidebar">
     <div class="logo">
