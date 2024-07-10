@@ -1,17 +1,21 @@
 package supermarketpcc.logica;
 
+import java.io.Serializable;
 import java.util.*;
 
-public class Bodega extends Inventario implements Organizador {
+public class Bodega extends Inventario implements Organizador , Serializable {
 
-    List<Producto> productos ;
+    private static final long serialVersionUID = 1L;
+
+    private List<Producto> productos ;
+
     public Bodega( String nombre) {
         super(nombre);
        this.productos = new ArrayList<>();
     }
 
     public void agregarProducto(Producto producto) {
-        productos.add(producto);
+          productos.add(producto);
     }
 
     @Override
@@ -25,4 +29,6 @@ public class Bodega extends Inventario implements Organizador {
     public void ordenar() {
         productos.sort(Comparator.comparing(Producto::getNombre));
     }
+
+
 }

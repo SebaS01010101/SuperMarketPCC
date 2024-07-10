@@ -35,6 +35,7 @@ public class Sistema {
         return null;
     }
 
+
     public void cargarProductosEnEstantes(int id, List<Estante> estantes) {
         Producto producto = buscarProductoPorId(id);
 
@@ -57,6 +58,7 @@ public class Sistema {
                 if (estanteCorrespondiente != null) {
                     estanteCorrespondiente.agregarProducto(producto);
                     System.out.println("Producto agregado al estante de " + tipoEstante);
+
                 } else {
                     System.out.println("Estante de tipo " + tipoEstante + " no existe.");
                 }
@@ -107,18 +109,6 @@ public class Sistema {
     }
 
 
-    public void serializableBodega() {
-        try {
-            FileOutputStream fileOut = new FileOutputStream("bodega.json");
-            ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
-            objectOut.writeObject(bodega);
-            objectOut.close();
-            System.out.println("Bodega serializada en bodega.json");
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
-
     public void serializableBodega(Bodega bodegaActualizada) {
         try {
             FileOutputStream fileOut = new FileOutputStream("bodega.json");
@@ -146,7 +136,6 @@ public class Sistema {
 
     public void cargarProductoBodega(int id) {
         Producto productoEnBodega = buscarProductoPorId(id);
-
         if (productoEnBodega != null) {
             bodega.agregarProducto(productoEnBodega);
             System.out.println("Producto agregado a la bodega");
@@ -182,10 +171,6 @@ public class Sistema {
         }
     }
 
-    public void eliminarDeEstante() {
-        // en desarrollo
-        new UnsupportedOperationException();
-    }
 
 
 }
