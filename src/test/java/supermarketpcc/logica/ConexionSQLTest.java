@@ -32,5 +32,13 @@ class ConexionSQLTest {
 
     @Test
     void cerrarConexion() {
+        conexionSQL.conexionBD();
+        Connection connection = conexionSQL.getConnection();
+        conexionSQL.cerrarConexion();
+        try {
+            assertTrue(connection.isClosed());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
