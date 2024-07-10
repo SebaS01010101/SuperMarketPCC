@@ -180,6 +180,7 @@ public class SvProducto {
             insertTipoProductoBebestible(ultimaID);
         }
     }
+
     public void insertTipoProductoBebestible(int ultimaID) throws SQLException {
         try (Statement statement = connection.createStatement()) {
             String sql = "INSERT INTO tipo_producto(ID_tipo, ID_producto) VALUES ('3','" + ultimaID + "')";
@@ -244,6 +245,7 @@ public class SvProducto {
             }
         }
     }
+
     public void eliminarTodoProducto (String codigo){
         PreparedStatement preparedStatement = null;
         try {
@@ -268,6 +270,7 @@ public class SvProducto {
         }
 
     }
+
     public void eliminarPorNombre (String nombre){
         PreparedStatement preparedStatement = null;
         try {

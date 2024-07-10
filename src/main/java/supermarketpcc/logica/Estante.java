@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.*;
 
 
-public class Estante extends Inventario implements Organizador{
+public class Estante extends Inventario implements Organizador {
 
     private static final long serialVersionUID = 1L;
 
@@ -13,7 +13,7 @@ public class Estante extends Inventario implements Organizador{
     private double volumenActual;
     private List<Producto> productosEstante;
 
-    public Estante( String nombre, String tipo, double volumenMax) {
+    public Estante(String nombre, String tipo, double volumenMax) {
         super(nombre);
         this.tipo = tipo;
         this.volumenMax = volumenMax;
