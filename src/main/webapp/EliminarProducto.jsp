@@ -40,7 +40,7 @@
 
     <!-- Formulario para borrar -->
     <div class="form">
-    </div>
+    <div>
         <h3>Eliminar por id</h3>
         <form action="" method="post">
             <label for="id">Id:</label>
