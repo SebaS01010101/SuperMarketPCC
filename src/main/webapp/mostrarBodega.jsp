@@ -52,6 +52,7 @@
             <%
                 Sistema sistema = new Sistema();
                 Bodega bodega = sistema.deserializableBodega();
+                bodega.ordenar();
                 try{
                     List<Producto> productos = bodega.getProductos();
                     for (Producto producto : productos) {

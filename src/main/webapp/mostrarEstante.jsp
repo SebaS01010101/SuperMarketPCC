@@ -43,6 +43,7 @@
         List<Estante> estantes = sistema.deserializableEstantes();
         if (estantes != null && !estantes.isEmpty()) {
             for (Estante estante : estantes) {
+                estante.ordenar();
                 out.println("<h2>Estante: " + estante.getNombre() + " - " + estante.getTipo() + "</h2>");
                 List<Producto> productos = estante.getProductos();
                 if (productos != null && !productos.isEmpty()) {

@@ -7,10 +7,7 @@ public class Alimento extends Producto {
         super(id, nombre, codigoBarras, volumen);
     }
 
-    @Override
-    public void mostrar() {
 
-    }
 
 
     @Override
